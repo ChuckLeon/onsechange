@@ -8,12 +8,14 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
+  const { organiser, participantEmail, participantName, giftee } = req.query;
+
   try {
     const data = await resend.emails.send({
       from: "onboarding@resend.dev",
       to: ["charles_heon@hotmail.com"],
-      subject: "Hello world",
-      react: "Wowiiii email",
+      subject: `${organiser} t'as invité à son échange de cadeau! 🎁`,
+      html: `Salut ${participantName} <br> Tu as pigé: ${giftee}`,
     });
 
     res.status(200).json(data);
