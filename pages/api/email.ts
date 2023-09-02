@@ -12,8 +12,8 @@ export default async function handler(
 
   try {
     const data = await resend.emails.send({
-      from: "onboarding@resend.dev",
-      to: ["charles_heon@hotmail.com"],
+      from: "hello@onsechange.com",
+      to: [`${participantEmail}`],
       subject: `${organiser} t'as invité à son échange de cadeau! 🎁`,
       html: `Salut ${participantName} <br> Tu as pigé: ${giftee}`,
     });
