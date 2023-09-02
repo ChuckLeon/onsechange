@@ -15,10 +15,9 @@ export const sendEmail = async (
     );
 
     if (response.ok) {
-      const data = await response.json();
-      console.log(data);
+      await response.json();
     } else {
-      throw new Error("Failed to fetch data");
+      throw new Error("Failed to send email");
     }
   } catch (error) {
     console.error("Error:", error);
