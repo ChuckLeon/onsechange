@@ -8,6 +8,7 @@ import { getRandomItemFromArray } from "@/utilities/array";
 export const useForm = () => {
   const [sendingEmails, setSendingEmails] = useState<boolean>(false);
   const [organiserName, setOrganiserName] = useState<string>("");
+  const [exchangeName, setExchangeName] = useState<string>("");
   const [currentStep, setCurrentStep] = useState<Step>("SetOrganiser");
   const [canGoToSecondStep, setCanGoToSecondStep] = useState<boolean>(false);
   const [participants, setParticipants] = useState<IParticipant[]>([
@@ -19,6 +20,8 @@ export const useForm = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (participants.length < MIN_PARTICIPANTS || organiserName === "") return;
+
     setSendingEmails(true);
 
     let giftees: IParticipant[] = [];
@@ -39,7 +42,7 @@ export const useForm = () => {
 
       giftees.push(randomGiftee);
 
-      await sendEmail(organiserName, participant, randomGiftee);
+      await sendEmail(exchangeName, organiserName, participant, randomGiftee);
     }
 
     setSendingEmails(false);
@@ -52,6 +55,8 @@ export const useForm = () => {
 
   return {
     sendingEmails,
+    exchangeName,
+    setExchangeName,
     organiserName,
     setOrganiserName,
     currentStep,
