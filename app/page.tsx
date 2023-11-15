@@ -8,7 +8,7 @@ export default function Home() {
         <h1>{"On s'échange"}</h1>
         <h3 className="text-center">Concept simple</h3>
         <p className="text-center">
-          {`Tu entres les informations de l'échange, tu ajoutes les participant et ensuite t'envoies l'échange 👍`}
+          {`Tu entres les informations de l'échange, tu ajoutes les participants et ensuite t'envoies l'échange 👍`}
           <br></br>
           {`Minimum 3 participants, sinon fait juste donner un cadeau à l'autre
           tsé 😉`}
