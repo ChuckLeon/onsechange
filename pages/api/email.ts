@@ -12,30 +12,22 @@ export default async function handler(
     req.query;
 
   try {
+    const trimmedParticipantEmail = participantEmail?.toString().trim();
+    const trimmedParticipantName = participantName?.toString().trim();
+    const trimmedExchangeName = exchangeName?.toString().trim();
+    const trimmedOrganiser = organiser?.toString().trim();
+    const trimmedGiftee = giftee?.toString().trim();
+
     const data = await resend.emails.send({
-      from: "onboarding@resend.dev",
-      // to: [`${participantEmail}`],
-      to: [`charles_heon@hotmail.com`], //need to put the email of the linked resend account if using onboarding@resend.dev as from
-      subject: `🎁 Salut ${participantName} tu es invité à l'échange ${exchangeName} de ${organiser}! 🎁`,
+      from: "On s'échange <send@onsechange.com>",
+      to: `${trimmedParticipantEmail}`,
+      subject: `🎁 Salut ${trimmedParticipantName} vous êtes invité(e) à l'échange ${trimmedExchangeName} de ${trimmedOrganiser}! 🎁`,
       html: `
-        <h1>Salut ${participantName}</h1>        
-        <p>Vous êtes chanceux, ${organiser} vous partage une invitation pour participer à ${exchangeName}</p>
+        <h1>Salut ${trimmedParticipantName}</h1>        
+        <p>Vous êtes chanceux(se), ${trimmedOrganiser} vous partage une invitation pour participer à ${trimmedExchangeName}</p>
         <p>N'oubliez pas que c'est un secret 🤫</p>
-        <p>Vous avez pigé: <u>${giftee}</u></p>
-        <img src="https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Christmas image" width="653" height="435" style="border-radius: 10px" />
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
-        ${participantEmail}
+        <p>Vous avez pigé: <u>${trimmedGiftee}</u></p>
+        <img src="https://images.unsplash.com/photo-1513297887119-d46091b24bfa?q=80&w=3870&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Christmas image" width="653" height="435" style="border-radius: 10px" />        
       `,
     });
 
