@@ -1,15 +1,16 @@
 import { IParticipant } from "@/utilities/interfaces";
 
 export const sendEmail = async (
+  exchangeName: string,
   organiserName: string,
   participant: IParticipant,
   giftee: IParticipant
 ) => {
   try {
     const response = await fetch(
-      `/api/email?organiser=${encodeURIComponent(
-        organiserName
-      )}&participantEmail=${encodeURI(participant.email)}
+      `/api/email?exchangeName=${encodeURIComponent(exchangeName)}
+      &organiser=${encodeURIComponent(organiserName)}
+      &participantEmail=${encodeURI(participant.email)}
       &participantName=${encodeURI(participant.name)}
       &giftee=${encodeURI(giftee.name)}`
     );

@@ -9,6 +9,8 @@ import { useForm } from "./useForm";
 export const Form = () => {
   const {
     sendingEmails,
+    exchangeName,
+    setExchangeName,
     organiserName,
     setOrganiserName,
     currentStep,
@@ -29,6 +31,16 @@ export const Form = () => {
     >
       {currentStep === "SetOrganiser" && (
         <>
+          <LabelledInput
+            label="Nom de l'échange"
+            inputName="exchangeName"
+            inputId="exchangeName"
+            value={exchangeName}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+              setExchangeName(e.currentTarget.value)
+            }
+          />
+
           <LabelledInput
             label="Nom de l'organisateur"
             inputName="organiser"

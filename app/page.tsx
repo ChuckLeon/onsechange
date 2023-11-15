@@ -1,6 +1,5 @@
 "use client";
 import { Form } from "@/components/Form";
-import { Button } from "@/components/inputs/Button";
 
 export default function Home() {
   return (
