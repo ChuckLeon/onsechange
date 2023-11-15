@@ -28,6 +28,7 @@ export const Participant = ({
         className="w-96"
         value={name}
         required
+        autoFocus
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           setName(e.currentTarget.value)
         }
