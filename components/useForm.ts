@@ -49,6 +49,13 @@ export const useForm = () => {
     setCurrentStep("ExchangeSent");
   };
 
+  const resetExchange = () => {
+    setCurrentStep("SetOrganiser");
+    setOrganiserName("");
+    setExchangeName("");
+    setParticipants([]);
+  };
+
   useEffect(() => {
     setCanGoToSecondStep(organiserName.length > 0);
   }, [organiserName]);
@@ -67,5 +74,6 @@ export const useForm = () => {
     MIN_PARTICIPANTS,
     formRef,
     handleSubmit,
+    resetExchange,
   };
 };

@@ -6,6 +6,7 @@ interface ILablledInput {
   inputName: string;
   inputId: string;
   value: string;
+  autoFocus?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -14,6 +15,7 @@ export const LabelledInput = ({
   inputName,
   inputId,
   value,
+  autoFocus,
   onChange,
 }: ILablledInput) => {
   return (
@@ -27,6 +29,7 @@ export const LabelledInput = ({
         id={inputId}
         className="w-96"
         value={value}
+        autoFocus={autoFocus}
         onChange={onChange}
       />
     </>

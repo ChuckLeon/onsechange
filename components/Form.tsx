@@ -21,6 +21,7 @@ export const Form = () => {
     MIN_PARTICIPANTS,
     formRef,
     handleSubmit,
+    resetExchange,
   } = useForm();
 
   return (
@@ -36,6 +37,7 @@ export const Form = () => {
             inputName="exchangeName"
             inputId="exchangeName"
             value={exchangeName}
+            autoFocus
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               setExchangeName(e.currentTarget.value)
             }
@@ -106,7 +108,12 @@ export const Form = () => {
             </Button>
           </>
         ))}
-      {currentStep === "ExchangeSent" && <h2>{"Lets goooo c'est envoyé"}</h2>}
+      {currentStep === "ExchangeSent" && (
+        <div className="flex flex-col gap-2">
+          <h2>{"L'échange est envoyé!"}</h2>
+          <Button onClick={resetExchange}>Envoyer un autre échange</Button>
+        </div>
+      )}
     </form>
   );
 };
