@@ -54,7 +54,7 @@ export const Form = () => {
           />
 
           <Button
-            type="button"
+            type="submit"
             onClick={() => setCurrentStep("AddUsers")}
             disabled={!canGoToSecondStep}
           >
