@@ -1,4 +1,4 @@
-import { IParticipant } from "@/utilities/interfaces";
+import { IParticipant } from "@/utilities/participant";
 
 export const sendEmail = async (
   exchangeName: string,
