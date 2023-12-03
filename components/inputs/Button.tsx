@@ -19,7 +19,7 @@ export const Button = ({ rounded, fitContent, ...props }: IButton) => {
         ease-in-out duration-300 
         disabled:bg-slate-500 disabled:hover:bg-slate-500 disabled:text-slate-950 disabled:opacity-30`,
         { "rounded-full": rounded },
-        { "px-1 py-1": rounded },
+        { "!p-1": rounded },
         { "w-fit": fitContent }
       )}
     ></button>
