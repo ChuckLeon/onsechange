@@ -1,18 +1,31 @@
 export interface IParticipant {
   id: string;
-  name: string;
-  email: string;
+  name: {
+    value: string;
+    error: boolean;
+  };
+  email: {
+    value: string;
+    error: boolean;
+  };
 }
+
 export const emptyParticipant = {
   id: crypto.randomUUID(),
-  name: "",
-  email: "",
+  name: {
+    value: "",
+    error: false,
+  },
+  email: {
+    value: "",
+    error: false,
+  },
 };
 
 export const createNewParticipant = (id: string) => {
   return {
     id: id,
-    name: "",
-    email: ""
-  }
-}
+    name: { value: "", error: false },
+    email: { value: "", error: false },
+  };
+};

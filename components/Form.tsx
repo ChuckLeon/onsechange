@@ -72,25 +72,29 @@ export const Form = () => {
               <Participant
                 key={`participant-${index}`}
                 title={`Participant ${index + 1}`}
-                name={participant.name}
+                name={participant.name.value}
                 setName={(newName) => {
                   const newParticipants = [...participants];
-                  newParticipants[index].name = newName;
+                  newParticipants[index].name.value = newName;
                   setParticipants(newParticipants);
                 }}
-                email={participant.email}
+                email={participant.email.value}
                 setEmail={(newEmail) => {
                   const newParticipants = [...participants];
-                  newParticipants[index].email = newEmail;
+                  newParticipants[index].email.value = newEmail;
                   setParticipants(newParticipants);
                 }}
                 onDelete={() => onDelete(participant.id)}
+                error={participant.name.error || participant.email.error}
               />
             ))}
             <Button
               type="button"
               onClick={() => {
-                setParticipants([...participants, { ...createNewParticipant(crypto.randomUUID()) }]);
+                setParticipants([
+                  ...participants,
+                  { ...createNewParticipant(crypto.randomUUID()) },
+                ]);
               }}
             >
               {"Ajouter un participant"}
@@ -101,8 +105,8 @@ export const Form = () => {
                 participants.length < MIN_PARTICIPANTS ||
                 participants.filter(
                   (participant) =>
-                    participant.name.length === 0 ||
-                    participant.email.length === 0
+                    participant.name.value.length === 0 ||
+                    participant.email.value.length === 0
                 ).length > 0
               }
             >

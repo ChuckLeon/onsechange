@@ -1,6 +1,7 @@
 import React from "react";
 import { Input } from "../inputs/Input";
 import { Button } from "../inputs/Button";
+import clsx from "clsx";
 
 interface IParticipant {
   title: string;
@@ -9,6 +10,7 @@ interface IParticipant {
   email: string;
   setEmail: (value: string) => void;
   onDelete: () => void;
+  error: boolean;
 }
 
 export const Participant = ({
@@ -18,9 +20,14 @@ export const Participant = ({
   email,
   setEmail,
   onDelete,
+  error,
 }: IParticipant) => {
   return (
-    <div className="flex flex-col relative py-4 gap-2">
+    <div
+      className={clsx("flex flex-col relative py-4 gap-2", {
+        "border-1 border-solid border-red-500": error,
+      })}
+    >
       <div className="absolute top-4 right-0">
         <Button onClick={onDelete} rounded fitContent>
           {/* from heroicons */}

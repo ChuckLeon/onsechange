@@ -4,6 +4,7 @@ import { Step } from "../utilities/types";
 import { IParticipant, emptyParticipant } from "../utilities/participant";
 import { sendEmail } from "@/scripts/sendEmail";
 import { getRandomItemFromArray } from "@/utilities/array";
+import { formSchema } from "@/utilities/schemas";
 
 export const useForm = () => {
   const [sendingEmails, setSendingEmails] = useState<boolean>(false);
@@ -20,33 +21,53 @@ export const useForm = () => {
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (participants.length < MIN_PARTICIPANTS || organiserName === "") return;
-
     setSendingEmails(true);
 
-    let giftees: IParticipant[] = [];
+    if (validateParticipants(participants)) {
+      let giftees: IParticipant[] = [];
 
-    for (const participant of participants) {
-      const notPickedParticipants = participants.filter(
-        (participant) =>
-          giftees.findIndex(
-            (giftee) =>
-              giftee.email === participant.email &&
-              giftee.name === participant.name
-          ) === -1
-      );
-      const randomGiftee = getRandomItemFromArray(
-        notPickedParticipants,
-        participant
-      );
+      for (const participant of participants) {
+        const notPickedParticipants = participants.filter(
+          (participant) =>
+            giftees.findIndex(
+              (giftee) =>
+                giftee.email.value === participant.email.value &&
+                giftee.name.value === participant.name.value
+            ) === -1
+        );
+        const randomGiftee = getRandomItemFromArray(
+          notPickedParticipants,
+          participant
+        );
 
-      giftees.push(randomGiftee);
+        giftees.push(randomGiftee);
 
-      await sendEmail(exchangeName, organiserName, participant, randomGiftee);
+        await sendEmail(exchangeName, organiserName, participant, randomGiftee);
+      }
+
+      setCurrentStep("ExchangeSent");
     }
 
     setSendingEmails(false);
-    setCurrentStep("ExchangeSent");
+  };
+
+  const validateParticipants = (participants: IParticipant[]) => {
+    const newParticipants = participants;
+    let canSend: boolean = false;
+    canSend = participants.length >= MIN_PARTICIPANTS || organiserName !== "";
+
+    participants.forEach((participant, i) => {
+      newParticipants[i].email.error =
+        !formSchema.safeParse(participant).success;
+
+      if (canSend) {
+        canSend = formSchema.safeParse(participant).success;
+      }
+    });
+
+    console.log(newParticipants);
+    setParticipants(newParticipants);
+    return canSend;
   };
 
   const resetExchange = () => {
