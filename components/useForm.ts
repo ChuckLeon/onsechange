@@ -1,7 +1,7 @@
 "use client";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { Step } from "../utilities/types";
-import { IParticipant, emptyParticipant } from "../utilities/interfaces";
+import { IParticipant, emptyParticipant } from "../utilities/participant";
 import { sendEmail } from "@/scripts/sendEmail";
 import { getRandomItemFromArray } from "@/utilities/array";
 
@@ -56,6 +56,12 @@ export const useForm = () => {
     setParticipants([]);
   };
 
+  const onDelete = (id: string) => {
+    setParticipants(
+      participants.filter((participant) => participant.id !== id)
+    );
+  };
+
   useEffect(() => {
     setCanGoToSecondStep(organiserName.length > 0);
   }, [organiserName]);
@@ -75,5 +81,6 @@ export const useForm = () => {
     formRef,
     handleSubmit,
     resetExchange,
+    onDelete,
   };
 };

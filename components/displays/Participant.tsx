@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "../inputs/Input";
+import { Button } from "../inputs/Button";
 
 interface IParticipant {
   title: string;
@@ -7,6 +8,7 @@ interface IParticipant {
   setName: (value: string) => void;
   email: string;
   setEmail: (value: string) => void;
+  onDelete: () => void;
 }
 
 export const Participant = ({
@@ -15,9 +17,29 @@ export const Participant = ({
   setName,
   email,
   setEmail,
+  onDelete,
 }: IParticipant) => {
   return (
-    <div className="flex flex-col py-4 gap-2">
+    <div className="flex flex-col relative py-4 gap-2">
+      <div className="absolute top-4 right-0">
+        <Button onClick={onDelete} rounded fitContent>
+          {/* from heroicons */}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-4 h-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </Button>
+      </div>
       <h2>{title}</h2>
       <label htmlFor={`name-${title}`} className="text-2xl">
         Nom

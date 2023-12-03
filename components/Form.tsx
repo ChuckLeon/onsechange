@@ -2,7 +2,7 @@
 import { Button } from "./inputs/Button";
 import { LabelledInput } from "./displays/LabelledInput";
 import { Participant } from "./displays/Participant";
-import { emptyParticipant } from "../utilities/interfaces";
+import { createNewParticipant } from "../utilities/participant";
 import { Loader2 } from "lucide-react";
 import { useForm } from "./useForm";
 
@@ -22,6 +22,7 @@ export const Form = () => {
     formRef,
     handleSubmit,
     resetExchange,
+    onDelete,
   } = useForm();
 
   return (
@@ -83,12 +84,13 @@ export const Form = () => {
                   newParticipants[index].email = newEmail;
                   setParticipants(newParticipants);
                 }}
+                onDelete={() => onDelete(participant.id)}
               />
             ))}
             <Button
               type="button"
               onClick={() => {
-                setParticipants([...participants, { ...emptyParticipant }]);
+                setParticipants([...participants, { ...createNewParticipant(crypto.randomUUID()) }]);
               }}
             >
               {"Ajouter un participant"}
