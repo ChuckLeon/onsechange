@@ -13,3 +13,5 @@ export const formSchema = z.object({
     error: z.boolean(),
   }),
 });
+
+export const participantsSchema = z.array(formSchema);

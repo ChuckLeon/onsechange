@@ -73,19 +73,20 @@ export const Form = () => {
                 key={`participant-${index}`}
                 title={`Participant ${index + 1}`}
                 name={participant.name.value}
+                nameIsInvalid={participant.name.error}
                 setName={(newName) => {
                   const newParticipants = [...participants];
                   newParticipants[index].name.value = newName;
                   setParticipants(newParticipants);
                 }}
                 email={participant.email.value}
+                emailIsInvalid={participant.email.error}
                 setEmail={(newEmail) => {
                   const newParticipants = [...participants];
                   newParticipants[index].email.value = newEmail;
                   setParticipants(newParticipants);
                 }}
                 onDelete={() => onDelete(participant.id)}
-                error={participant.name.error || participant.email.error}
               />
             ))}
             <Button

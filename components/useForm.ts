@@ -4,7 +4,8 @@ import { Step } from "../utilities/types";
 import { IParticipant, emptyParticipant } from "../utilities/participant";
 import { sendEmail } from "@/scripts/sendEmail";
 import { getRandomItemFromArray } from "@/utilities/array";
-import { formSchema } from "@/utilities/schemas";
+import { participantsSchema } from "@/utilities/schemas";
+import { ZodIssue, z } from "zod";
 
 export const useForm = () => {
   const [sendingEmails, setSendingEmails] = useState<boolean>(false);
@@ -23,51 +24,70 @@ export const useForm = () => {
     event.preventDefault();
     setSendingEmails(true);
 
-    if (validateParticipants(participants)) {
-      let giftees: IParticipant[] = [];
-
-      for (const participant of participants) {
-        const notPickedParticipants = participants.filter(
-          (participant) =>
-            giftees.findIndex(
-              (giftee) =>
-                giftee.email.value === participant.email.value &&
-                giftee.name.value === participant.name.value
-            ) === -1
-        );
-        const randomGiftee = getRandomItemFromArray(
-          notPickedParticipants,
-          participant
-        );
-
-        giftees.push(randomGiftee);
-
-        await sendEmail(exchangeName, organiserName, participant, randomGiftee);
+    validateParticipants(participants).then((errors) => {
+      if (errors === null) {
+        sendToParticipants();
+      } else {
+        manageErrors(errors);
       }
-
-      setCurrentStep("ExchangeSent");
-    }
+    });
 
     setSendingEmails(false);
   };
 
-  const validateParticipants = (participants: IParticipant[]) => {
-    const newParticipants = participants;
-    let canSend: boolean = false;
-    canSend = participants.length >= MIN_PARTICIPANTS || organiserName !== "";
-
-    participants.forEach((participant, i) => {
-      newParticipants[i].email.error =
-        !formSchema.safeParse(participant).success;
-
-      if (canSend) {
-        canSend = formSchema.safeParse(participant).success;
+  const validateParticipants = async (
+    participants: IParticipant[]
+  ): Promise<ZodIssue[] | null> => {
+    try {
+      participantsSchema.parse(participants);
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        return error.errors;
       }
-    });
+    }
 
-    console.log(newParticipants);
-    setParticipants(newParticipants);
-    return canSend;
+    return null;
+  };
+
+  const sendToParticipants = async () => {
+    let giftees: IParticipant[] = [];
+
+    for (const participant of participants) {
+      const notPickedParticipants = participants.filter(
+        (participant) =>
+          giftees.findIndex(
+            (giftee) =>
+              giftee.email.value === participant.email.value &&
+              giftee.name.value === participant.name.value
+          ) === -1
+      );
+      const randomGiftee = getRandomItemFromArray(
+        notPickedParticipants,
+        participant
+      );
+
+      giftees.push(randomGiftee);
+
+      await sendEmail(exchangeName, organiserName, participant, randomGiftee);
+    }
+
+    setCurrentStep("ExchangeSent");
+  };
+
+  const manageErrors = (errors: ZodIssue[]) => {
+    setParticipants((prevState) => {
+      const newParticipants = [...prevState];
+      errors.forEach((error) => {
+        const key = error.path[1];
+
+        if (key === "name")
+          newParticipants[error.path[0] as number].name.error = true;
+        else if (key === "email")
+          newParticipants[error.path[0] as number].email.error = true;
+      });
+
+      return newParticipants;
+    });
   };
 
   const resetExchange = () => {
