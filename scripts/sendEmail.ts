@@ -10,9 +10,9 @@ export const sendEmail = async (
     const response = await fetch(
       `/api/email?exchangeName=${encodeURIComponent(exchangeName)}
       &organiser=${encodeURIComponent(organiserName)}
-      &participantEmail=${encodeURI(participant.email)}
-      &participantName=${encodeURI(participant.name)}
-      &giftee=${encodeURI(giftee.name)}`
+      &participantEmail=${encodeURI(participant.email.value)}
+      &participantName=${encodeURI(participant.name.value)}
+      &giftee=${encodeURI(giftee.name.value)}`
     );
 
     if (response.ok) {
