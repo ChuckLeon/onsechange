@@ -5,7 +5,7 @@ import { Inter } from "next/font/google";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "On s'échange",
+  title: "Échange de cadeau!",
   description:
     "Site simple et beau pour faire des échanges de cadeaux en famille ou entre amis",
 };

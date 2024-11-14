@@ -19,7 +19,7 @@ export default async function handler(
     const trimmedGiftee = giftee?.toString().trim();
 
     const data = await resend.emails.send({
-      from: "On s'échange <send@onsechange.com>",
+      from: "Échange de cadeau <send@echangedecadeau.com>",
       to: `${trimmedParticipantEmail}`,
       subject: `🎁 Salut ${trimmedParticipantName} vous êtes invité(e) à l'échange ${trimmedExchangeName} de ${trimmedOrganiser}! 🎁`,
       html: `
