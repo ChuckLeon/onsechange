@@ -1,5 +1,5 @@
 "use client";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { Step } from "../utilities/types";
 import { IParticipant, emptyParticipant } from "../utilities/participant";
 import { sendEmail } from "@/scripts/sendEmail";
@@ -9,14 +9,14 @@ import { ZodIssue, z } from "zod";
 
 export const useForm = () => {
   const [sendingEmails, setSendingEmails] = useState<boolean>(false);
-  const [organiserName, setOrganiserName] = useState<string>("");
-  const [exchangeName, setExchangeName] = useState<string>("");
   const [currentStep, setCurrentStep] = useState<Step>("SetOrganiser");
   const [canGoToSecondStep, setCanGoToSecondStep] = useState<boolean>(false);
   const [participants, setParticipants] = useState<IParticipant[]>([
     { ...emptyParticipant },
   ]);
   const formRef = useRef<HTMLFormElement>(null);
+  const exchangeNameRef = useRef<HTMLInputElement>(null);
+  const organiserNameRef = useRef<HTMLInputElement>(null);
 
   const MIN_PARTICIPANTS = 3;
 
@@ -50,6 +50,8 @@ export const useForm = () => {
   };
 
   const sendToParticipants = async () => {
+    const exchangeName = exchangeNameRef.current?.value ?? "";
+    const organiserName = organiserNameRef.current?.value ?? "";
     let giftees: IParticipant[] = [];
 
     for (const participant of participants) {
@@ -92,9 +94,10 @@ export const useForm = () => {
 
   const resetExchange = () => {
     setCurrentStep("SetOrganiser");
-    setOrganiserName("");
-    setExchangeName("");
+    if (organiserNameRef.current) organiserNameRef.current.value = "";
+    if (exchangeNameRef.current) exchangeNameRef.current.value = "";
     setParticipants([]);
+    setCanGoToSecondStep(false);
   };
 
   const onDelete = (id: string) => {
@@ -103,16 +106,13 @@ export const useForm = () => {
     );
   };
 
-  useEffect(() => {
-    setCanGoToSecondStep(organiserName.length > 0);
-  }, [organiserName]);
+  const onTopFieldChange = () => {
+    const hasOrganiser = (organiserNameRef.current?.value ?? "").length > 0;
+    setCanGoToSecondStep(hasOrganiser);
+  };
 
   return {
     sendingEmails,
-    exchangeName,
-    setExchangeName,
-    organiserName,
-    setOrganiserName,
     currentStep,
     setCurrentStep,
     canGoToSecondStep,
@@ -120,7 +120,10 @@ export const useForm = () => {
     setParticipants,
     MIN_PARTICIPANTS,
     formRef,
+    exchangeNameRef,
+    organiserNameRef,
     handleSubmit,
+    onTopFieldChange,
     resetExchange,
     onDelete,
   };

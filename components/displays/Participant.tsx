@@ -28,7 +28,6 @@ export const Participant = ({
     <div className={clsx("flex flex-col relative py-4 gap-2")}>
       <div className="absolute top-4 right-0">
         <Button onClick={onDelete} rounded fitContent>
-          {/* from heroicons */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

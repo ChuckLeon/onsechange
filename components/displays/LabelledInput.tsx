@@ -5,33 +5,29 @@ interface ILablledInput {
   label: string;
   inputName: string;
   inputId: string;
-  value: string;
   autoFocus?: boolean;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
-export const LabelledInput = ({
-  label,
-  inputName,
-  inputId,
-  value,
-  autoFocus,
-  onChange,
-}: ILablledInput) => {
-  return (
-    <>
-      <label htmlFor={inputName} className="text-2xl">
-        {label}
-      </label>
-      <Input
-        type="text"
-        name={inputName}
-        id={inputId}
-        className="w-96"
-        value={value}
-        autoFocus={autoFocus}
-        onChange={onChange}
-      />
-    </>
-  );
-};
+export const LabelledInput = React.forwardRef<HTMLInputElement, ILablledInput>(
+  ({ label, inputName, inputId, autoFocus, onChange }, ref) => {
+    return (
+      <>
+        <label htmlFor={inputName} className="text-2xl">
+          {label}
+        </label>
+        <Input
+          ref={ref}
+          type="text"
+          name={inputName}
+          id={inputId}
+          className="w-96"
+          autoFocus={autoFocus}
+          onChange={onChange}
+        />
+      </>
+    );
+  }
+);
+
+LabelledInput.displayName = "LabelledInput";

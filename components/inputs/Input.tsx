@@ -1,9 +1,16 @@
-import { InputHTMLAttributes } from "react";
+import  {forwardRef, InputHTMLAttributes } from "react";
+import clsx from "clsx";
 
 interface IInput extends InputHTMLAttributes<HTMLInputElement> {}
 
-export const Input = ({ ...props }: IInput) => {
+export const Input = forwardRef<HTMLInputElement, IInput>(({ className, ...props }, ref) => {
   return (
-    <input {...props} className=" w-96 bg-white rounded p-3 text-stone-950" />
+    <input
+      ref={ref}
+      {...props}
+      className={clsx("w-96 bg-white rounded p-3 text-stone-950", className)}
+    />
   );
-};
+});
+
+Input.displayName = "Input";

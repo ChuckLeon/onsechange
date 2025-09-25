@@ -9,10 +9,6 @@ import { useForm } from "./useForm";
 export const Form = () => {
   const {
     sendingEmails,
-    exchangeName,
-    setExchangeName,
-    organiserName,
-    setOrganiserName,
     currentStep,
     setCurrentStep,
     canGoToSecondStep,
@@ -20,7 +16,10 @@ export const Form = () => {
     setParticipants,
     MIN_PARTICIPANTS,
     formRef,
+    exchangeNameRef,
+    organiserNameRef,
     handleSubmit,
+    onTopFieldChange,
     resetExchange,
     onDelete,
   } = useForm();
@@ -37,21 +36,17 @@ export const Form = () => {
             label="Nom de l'échange"
             inputName="exchangeName"
             inputId="exchangeName"
-            value={exchangeName}
+            ref={exchangeNameRef}
             autoFocus
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setExchangeName(e.currentTarget.value)
-            }
+            onChange={onTopFieldChange}
           />
 
           <LabelledInput
             label="Nom de l'organisateur"
             inputName="organiser"
             inputId="organiser"
-            value={organiserName}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setOrganiserName(e.currentTarget.value)
-            }
+            ref={organiserNameRef}
+            onChange={onTopFieldChange}
           />
 
           <Button
@@ -118,7 +113,7 @@ export const Form = () => {
       {currentStep === "ExchangeSent" && (
         <div className="flex flex-col gap-2">
           <h2>{"L'échange est envoyé!"}</h2>
-          <Button onClick={resetExchange}>Envoyer un autre échange</Button>
+          <Button onClick={resetExchange}>Commencer un autre échange</Button>
         </div>
       )}
     </form>
