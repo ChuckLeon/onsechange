@@ -1,5 +1,5 @@
 "use client";
-import { ButtonHTMLAttributes } from "react";
+import { ButtonHTMLAttributes, PropsWithChildren } from "react";
 import clsx from "clsx";
 
 interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
@@ -7,9 +7,16 @@ interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   fitContent?: boolean;
 }
 
-export const Button = ({ rounded, fitContent, ...props }: IButton) => {
+export const Button = ({
+  rounded,
+  fitContent,
+  children,
+  type,
+  ...props
+}: PropsWithChildren<IButton>) => {
   return (
     <button
+      type={type ?? "button"}
       {...props}
       className={clsx(
         `
@@ -22,6 +29,8 @@ export const Button = ({ rounded, fitContent, ...props }: IButton) => {
         { "!p-1": rounded },
         { "w-fit": fitContent }
       )}
-    ></button>
+    >
+      {children}
+    </button>
   );
 };

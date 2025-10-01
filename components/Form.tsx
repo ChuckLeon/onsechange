@@ -6,8 +6,10 @@ import { createNewPlayer } from "../utilities/player";
 import { Loader2 } from "lucide-react";
 import { useForm } from "./useForm";
 import clsx from "clsx";
+import { useState } from "react";
 
 export const Form = () => {
+  const [autoFocusIndex, setAutoFocusIndex] = useState<number>(0);
   const {
     sendingEmails,
     currentStep,
@@ -74,7 +76,7 @@ export const Form = () => {
                 title={`Participant ${index + 1}`}
                 nameIsInvalid={player.name.error}
                 emailIsInvalid={player.email.error}
-                autoFocusName={index === 0}
+                autoFocusName={index === autoFocusIndex}
                 onDelete={() => onDelete(player.id)}
               />
             ))}
@@ -88,6 +90,7 @@ export const Form = () => {
                     ...players,
                     { ...createNewPlayer(crypto.randomUUID()) },
                   ]);
+                  setAutoFocusIndex(players.length);
                 }}
               >
                 {"Ajouter un participant"}
