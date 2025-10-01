@@ -10,8 +10,8 @@ export const sendEmail = async (
     const response = await fetch(
       `/api/email?exchangeName=${encodeURIComponent(exchangeName)}
       &organiser=${encodeURIComponent(organiserName)}
-      &playerEmail=${encodeURI(player.email.value)}
-      &playerName=${encodeURI(player.name.value)}
+      &playerEmail=${encodeURI(player.email.value ?? "")}
+      &playerName=${encodeURI(player.name.value ?? "")}
       &giftee=${encodeURI(giftee.name.value)}`
     );
 

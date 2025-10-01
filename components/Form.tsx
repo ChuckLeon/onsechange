@@ -73,20 +73,11 @@ export const Form = () => {
               <Player
                 key={`player-${index}`}
                 title={`Participant ${index + 1}`}
-                name={player.name.value}
+                nameFieldName={`players[${index}][name]`}
+                emailFieldName={`players[${index}][email]`}
                 nameIsInvalid={player.name.error}
-                setName={(newName) => {
-                  const newPlayers = [...players];
-                  newPlayers[index].name.value = newName;
-                  setPlayers(newPlayers);
-                }}
-                email={player.email.value}
                 emailIsInvalid={player.email.error}
-                setEmail={(newEmail) => {
-                  const newPlayers = [...players];
-                  newPlayers[index].email.value = newEmail;
-                  setPlayers(newPlayers);
-                }}
+                autoFocusName={index === 0}
                 onDelete={() => onDelete(player.id)}
               />
             ))}
@@ -106,15 +97,7 @@ export const Form = () => {
               </Button>
               <Button
                 type="submit"
-                disabled={
-                  sendingEmails ||
-                  players.length < MIN_PLAYERS ||
-                  players.filter(
-                    (player) =>
-                      player.name.value.length === 0 ||
-                      player.email.value.length === 0
-                  ).length > 0
-                }
+                disabled={sendingEmails || players.length < MIN_PLAYERS}
               >
                 {"Envoie l'échange!!"}
               </Button>

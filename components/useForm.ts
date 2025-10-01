@@ -23,13 +23,18 @@ export const useForm = () => {
     setSendingEmails(true);
 
     try {
-      const errors = await validatePlayers(players);
+      // Build players from FormData to avoid per-keystroke state updates
+      const formData = new FormData(formRef.current!);
+      const formPlayers: IPlayer[] = buildPlayersFromFormData(formData);
+
+      const errors = await validatePlayers(formPlayers);
 
       if (errors) {
         manageErrors(errors);
+        return;
       }
 
-      sendToPlayers();
+      await sendToPlayers(formPlayers);
     } catch (error) {
       console.error(error);
     } finally {
@@ -51,15 +56,16 @@ export const useForm = () => {
     return null;
   };
 
-  const sendToPlayers = async () => {
+  const sendToPlayers = async (playersToSend: IPlayer[]) => {
     const exchangeName = exchangeNameRef.current?.value ?? "";
     const organiserName = organiserNameRef.current?.value ?? "";
 
     let giftees: IPlayer[] = [];
 
+    // TODO: validate why we dont see the last player name
     try {
-      for (const player of players) {
-        const notPickedPlayers = players.filter(
+      for (const player of playersToSend) {
+        const notPickedPlayers = playersToSend.filter(
           (player) =>
             giftees.findIndex(
               (giftee) =>
@@ -80,18 +86,48 @@ export const useForm = () => {
     }
   };
 
+  const buildPlayersFromFormData = (formData: FormData): IPlayer[] => {
+    // Expect fields like players[0][name], players[0][email]
+    const indexed: Record<string, Partial<IPlayer>> = {};
+    formData.forEach((value, key) => {
+      const stringValue = value?.toString() ?? "";
+      const match = key.match(/^players\[(\d+)\]\[(name|email)\]$/);
+      if (!match) return;
+      const index = match[1];
+      const field = match[2] as "name" | "email";
+      if (!indexed[index]) indexed[index] = {} as Partial<IPlayer>;
+      if (field === "name") {
+        (indexed[index] as any).name = { value: stringValue, error: false };
+      } else if (field === "email") {
+        (indexed[index] as any).email = { value: stringValue, error: false };
+      }
+    });
+    // Preserve existing ids order/length based on current state
+    const result: IPlayer[] = Object.keys(indexed)
+      .sort((a, b) => Number(a) - Number(b))
+      .map((idx, i) => {
+        const existing = players[i];
+        const id = existing?.id ?? crypto.randomUUID();
+        const partial = indexed[idx] as any;
+        return {
+          id,
+          name: partial.name ?? { value: "", error: false },
+          email: partial.email ?? { value: "", error: false },
+        } as IPlayer;
+      });
+    return result;
+  };
+
   const manageErrors = (errors: ZodIssue[]) => {
     setPlayers((prevState) => {
       const newPlayers = [...prevState];
       errors.forEach((error) => {
         const key = error.path[1];
-
-        if (key === "name")
-          newPlayers[error.path[0] as number].name.error = true;
-        else if (key === "email")
-          newPlayers[error.path[0] as number].email.error = true;
+        const index = error.path[0] as number;
+        if (!newPlayers[index]) return;
+        if (key === "name") newPlayers[index].name.error = true;
+        else if (key === "email") newPlayers[index].email.error = true;
       });
-
       return newPlayers;
     });
   };
