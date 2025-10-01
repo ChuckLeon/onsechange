@@ -8,6 +8,7 @@ interface IButton extends ButtonHTMLAttributes<HTMLButtonElement> {
 }
 
 export const Button = ({
+  className,
   rounded,
   fitContent,
   children,
@@ -19,11 +20,13 @@ export const Button = ({
       type={type ?? "button"}
       {...props}
       className={clsx(
+        className,
         `
-        py-2 px-4 rounded 
-        bg-red-500 hover:bg-red-600 
-        active:bg-red-700 focus:outline-none focus:ringfocus:ring-red-300 
-        ease-in-out duration-300 
+        py-1 px-4 rounded 
+        text-slate-50
+        bg-slate-950 hover:bg-slate-900 
+        active:bg-slate-700 focus:outline-slate-50 focus:ringfocus:ring-slate-50 
+        ease-in-out duration-200 
         disabled:bg-slate-500 disabled:hover:bg-slate-500 disabled:text-slate-950 disabled:opacity-30`,
         { "rounded-full": rounded },
         { "!p-1": rounded },

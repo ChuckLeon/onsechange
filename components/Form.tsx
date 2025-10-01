@@ -31,34 +31,37 @@ export const Form = () => {
     <form
       ref={formRef}
       onSubmit={handleSubmit}
-      className="w-fit flex flex-col items-start gap-2"
+      className="w-fit flex flex-col items-start gap-2 z-10"
     >
       <div
-        className={clsx("flex flex-col items-start gap-2", {
+        className={clsx("flex flex-col items-start gap-4", {
           hidden: currentStep !== "SetOrganiser",
         })}
       >
-        <LabelledInput
-          label="Nom de l'échange"
-          inputName="exchangeName"
-          inputId="exchangeName"
-          ref={exchangeNameRef}
-          autoFocus
-          onChange={onTopFieldChange}
-        />
+        <div className="flex flex-col gap-2">
+          <LabelledInput
+            label="Nom de l'échange"
+            inputName="exchangeName"
+            inputId="exchangeName"
+            ref={exchangeNameRef}
+            autoFocus
+            onChange={onTopFieldChange}
+          />
 
-        <LabelledInput
-          label="Nom de l'organisateur"
-          inputName="organiser"
-          inputId="organiser"
-          ref={organiserNameRef}
-          onChange={onTopFieldChange}
-        />
+          <LabelledInput
+            label="Nom de l'organisateur"
+            inputName="organiser"
+            inputId="organiser"
+            ref={organiserNameRef}
+            onChange={onTopFieldChange}
+          />
+        </div>
 
         <Button
           type="submit"
           onClick={() => setCurrentStep("AddUsers")}
           disabled={!canGoToSecondStep}
+          className="w-full"
         >
           Prochaine étape
         </Button>
