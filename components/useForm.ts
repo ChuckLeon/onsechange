@@ -23,7 +23,6 @@ export const useForm = () => {
     setSendingEmails(true);
 
     try {
-      // Build players from FormData to avoid per-keystroke state updates
       const formData = new FormData(formRef.current!);
       const formPlayers: IPlayer[] = buildPlayersFromFormData(formData);
 
@@ -62,7 +61,6 @@ export const useForm = () => {
 
     let giftees: IPlayer[] = [];
 
-    // TODO: validate why we dont see the last player name
     try {
       for (const player of playersToSend) {
         const notPickedPlayers = playersToSend.filter(
@@ -91,7 +89,7 @@ export const useForm = () => {
     const indexed: Record<string, Partial<IPlayer>> = {};
     formData.forEach((value, key) => {
       const stringValue = value?.toString() ?? "";
-      const match = key.match(/^players\[(\d+)\]\[(name|email)\]$/);
+      const match = key.match(/^player(\d+)-(name|email)$/);
       if (!match) return;
       const index = match[1];
       const field = match[2] as "name" | "email";
@@ -136,7 +134,7 @@ export const useForm = () => {
     setCurrentStep("SetOrganiser");
     if (organiserNameRef.current) organiserNameRef.current.value = "";
     if (exchangeNameRef.current) exchangeNameRef.current.value = "";
-    setPlayers([]);
+    setPlayers([{ ...emptyPlayer }]);
     setCanGoToSecondStep(false);
   };
 

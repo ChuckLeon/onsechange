@@ -25,8 +25,6 @@ export const Form = () => {
     onDelete,
   } = useForm();
 
-  console.log(currentStep);
-
   return (
     <form
       ref={formRef}
@@ -71,10 +69,9 @@ export const Form = () => {
           <>
             {players.map((player, index) => (
               <Player
-                key={`player-${index}`}
+                key={player.id}
+                fieldBase={index.toString()}
                 title={`Participant ${index + 1}`}
-                nameFieldName={`players[${index}][name]`}
-                emailFieldName={`players[${index}][email]`}
                 nameIsInvalid={player.name.error}
                 emailIsInvalid={player.email.error}
                 autoFocusName={index === 0}

@@ -1,13 +1,12 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Input } from "../inputs/Input";
 import { Button } from "../inputs/Button";
 import { X } from "lucide-react";
 import clsx from "clsx";
 
 interface IPlayerUncontrolledProps {
+  fieldBase: string;
   title: string;
-  nameFieldName: string;
-  emailFieldName: string;
   nameIsInvalid: boolean;
   emailIsInvalid: boolean;
   autoFocusName?: boolean;
@@ -15,14 +14,16 @@ interface IPlayerUncontrolledProps {
 }
 
 export const Player = ({
+  fieldBase,
   title,
-  nameFieldName,
-  emailFieldName,
   nameIsInvalid,
   emailIsInvalid,
   autoFocusName,
   onDelete,
 }: IPlayerUncontrolledProps) => {
+  const fieldName = useMemo(() => `player${fieldBase}-name`, [fieldBase]);
+  const fieldEmail = useMemo(() => `player${fieldBase}-email`, [fieldBase]);
+
   return (
     <div className={clsx("flex flex-col relative py-4 gap-2")}>
       <div className="absolute top-4 right-0">
@@ -33,15 +34,15 @@ export const Player = ({
       <h2>{title}</h2>
       <div className="flex flex-col">
         <label
-          htmlFor={nameFieldName}
+          htmlFor={fieldName}
           className={clsx("text-2xl", { "text-red-500": nameIsInvalid })}
         >
           Nom
         </label>
         <Input
           type="text"
-          name={nameFieldName}
-          id={nameFieldName}
+          name={fieldName}
+          id={fieldName}
           className={clsx("w-96", { "text-red-500": nameIsInvalid })}
           required
           autoFocus={autoFocusName}
@@ -50,15 +51,15 @@ export const Player = ({
       </div>
       <div className="flex flex-col">
         <label
-          htmlFor={emailFieldName}
+          htmlFor={fieldEmail}
           className={clsx("text-2xl", { "text-red-500": emailIsInvalid })}
         >
           Email
         </label>
         <Input
           type="email"
-          name={emailFieldName}
-          id={emailFieldName}
+          name={fieldEmail}
+          id={fieldEmail}
           className={clsx("w-96", { "text-red-500": emailIsInvalid })}
           required
         />
