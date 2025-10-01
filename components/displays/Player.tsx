@@ -1,9 +1,10 @@
 import React from "react";
 import { Input } from "../inputs/Input";
 import { Button } from "../inputs/Button";
+import { X } from "lucide-react";
 import clsx from "clsx";
 
-interface IParticipant {
+interface IPlayer {
   title: string;
   name: string;
   nameIsInvalid: boolean;
@@ -14,7 +15,7 @@ interface IParticipant {
   onDelete: () => void;
 }
 
-export const Participant = ({
+export const Player = ({
   title,
   name,
   nameIsInvalid,
@@ -23,25 +24,12 @@ export const Participant = ({
   emailIsInvalid,
   setEmail,
   onDelete,
-}: IParticipant) => {
+}: IPlayer) => {
   return (
     <div className={clsx("flex flex-col relative py-4 gap-2")}>
       <div className="absolute top-4 right-0">
         <Button onClick={onDelete} rounded fitContent>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-4 h-4"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
+          <X />
         </Button>
       </div>
       <h2>{title}</h2>

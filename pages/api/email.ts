@@ -8,22 +8,22 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  const { exchangeName, organiser, participantEmail, participantName, giftee } =
+  const { exchangeName, organiser, playerEmail, playerName, giftee } =
     req.query;
 
   try {
-    const trimmedParticipantEmail = participantEmail?.toString().trim();
-    const trimmedParticipantName = participantName?.toString().trim();
+    const trimmedPlayerEmail = playerEmail?.toString().trim();
+    const trimmedPlayerName = playerName?.toString().trim();
     const trimmedExchangeName = exchangeName?.toString().trim();
     const trimmedOrganiser = organiser?.toString().trim();
     const trimmedGiftee = giftee?.toString().trim();
 
     const data = await resend.emails.send({
       from: "Échange de cadeau <send@echangedecadeau.com>",
-      to: `${trimmedParticipantEmail}`,
-      subject: `🎁 Salut ${trimmedParticipantName} vous êtes invité(e) à l'échange ${trimmedExchangeName} de ${trimmedOrganiser}! 🎁`,
+      to: `${trimmedPlayerEmail}`,
+      subject: `🎁 Salut ${trimmedPlayerName} vous êtes invité(e) à l'échange ${trimmedExchangeName} de ${trimmedOrganiser}! 🎁`,
       html: `
-        <h1>Salut ${trimmedParticipantName}</h1>        
+        <h1>Salut ${trimmedPlayerName}</h1>        
         <p>Vous êtes chanceux(se), ${trimmedOrganiser} vous partage une invitation pour participer à ${trimmedExchangeName}</p>
         <p>N'oubliez pas que c'est un secret 🤫</p>
         <p>Vous avez pigé: <u>${trimmedGiftee}</u></p>

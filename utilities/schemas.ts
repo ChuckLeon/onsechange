@@ -14,4 +14,4 @@ export const formSchema = z.object({
   }),
 });
 
-export const participantsSchema = z.array(formSchema);
+export const playersSchema = z.array(formSchema);

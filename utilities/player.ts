@@ -1,4 +1,4 @@
-export interface IParticipant {
+export interface IPlayer {
   id: string;
   name: {
     value: string;
@@ -10,7 +10,7 @@ export interface IParticipant {
   };
 }
 
-export const emptyParticipant = {
+export const emptyPlayer = {
   id: crypto.randomUUID(),
   name: {
     value: "",
@@ -22,7 +22,7 @@ export const emptyParticipant = {
   },
 };
 
-export const createNewParticipant = (id: string) => {
+export const createNewPlayer = (id: string) => {
   return {
     id: id,
     name: { value: "", error: false },

@@ -1,17 +1,17 @@
-import { IParticipant } from "@/utilities/participant";
+import { IPlayer } from "@/utilities/player";
 
 export const sendEmail = async (
   exchangeName: string,
   organiserName: string,
-  participant: IParticipant,
-  giftee: IParticipant
+  player: IPlayer,
+  giftee: IPlayer
 ) => {
   try {
     const response = await fetch(
       `/api/email?exchangeName=${encodeURIComponent(exchangeName)}
       &organiser=${encodeURIComponent(organiserName)}
-      &participantEmail=${encodeURI(participant.email.value)}
-      &participantName=${encodeURI(participant.name.value)}
+      &playerEmail=${encodeURI(player.email.value)}
+      &playerName=${encodeURI(player.name.value)}
       &giftee=${encodeURI(giftee.name.value)}`
     );
 
