@@ -1,4 +1,10 @@
-import { forwardRef, InputHTMLAttributes, useState, useCallback } from "react";
+import {
+  forwardRef,
+  InputHTMLAttributes,
+  useRef,
+  useState,
+  useCallback,
+} from "react";
 import clsx from "clsx";
 
 type InputVariant = "default" | "filled" | "outline" | "underline";
@@ -12,25 +18,23 @@ interface IInput extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
   helperText?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  clearable?: boolean;
-  onClear?: () => void;
 }
 
 const inputVariants = {
   default:
-    "bg-white border border-secondary-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200",
+    "bg-gray-900 border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-200",
   filled:
-    "bg-secondary-50 border-0 focus:bg-white focus:ring-2 focus:ring-primary-200",
+    "bg-gray-800 border-0 focus:bg-gray-900 focus:ring-2 focus:ring-blue-200",
   outline:
-    "bg-transparent border-2 border-secondary-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200",
+    "bg-transparent border-2 border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-200",
   underline:
-    "bg-transparent border-0 border-b-2 border-secondary-300 focus:border-primary-500 rounded-none",
+    "bg-transparent border-0 border-b-2 border-gray-600 focus:border-blue-500 rounded-none",
 };
 
 const inputSizes = {
   sm: "px-3 py-1.5 text-sm",
-  md: "px-4 py-2 text-base",
-  lg: "px-5 py-3 text-lg",
+  md: "px-3 py-2 text-sm",
+  lg: "px-4 py-3 text-base",
 };
 
 export const Input = forwardRef<HTMLInputElement, IInput>(
@@ -44,37 +48,21 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
       helperText,
       leftIcon,
       rightIcon,
-      clearable = false,
-      onClear,
       value,
       onChange,
       ...props
     },
     ref
   ) => {
-    const [internalValue, setInternalValue] = useState(value || "");
+    const inputRef = useRef<HTMLInputElement>(null);
     const [isFocused, setIsFocused] = useState(false);
-
-    const currentValue = value !== undefined ? value : internalValue;
-    const hasValue = currentValue !== "";
-    const showClearButton = clearable && hasValue && !props.disabled;
 
     const handleChange = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (value === undefined) {
-          setInternalValue(e.target.value);
-        }
         onChange?.(e);
       },
-      [value, onChange]
+      [onChange]
     );
-
-    const handleClear = useCallback(() => {
-      if (value === undefined) {
-        setInternalValue("");
-      }
-      onClear?.();
-    }, [value, onClear]);
 
     const handleFocus = useCallback(
       (e: React.FocusEvent<HTMLInputElement>) => {
@@ -95,84 +83,61 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
     return (
       <div className="w-full">
         {label && (
-          <label className="block text-sm font-medium text-secondary-700 mb-1">
+          <label className="block text-sm font-medium text-text-primary mb-1">
             {label}
           </label>
         )}
 
         <div className="relative">
           {leftIcon && (
-            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-secondary-400">
+            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary">
               {leftIcon}
             </div>
           )}
 
           <input
-            ref={ref}
-            value={currentValue}
+            ref={(node) => {
+              if (typeof ref === "function") {
+                ref(node);
+              } else if (ref) {
+                (
+                  ref as React.MutableRefObject<HTMLInputElement | null>
+                ).current = node;
+              }
+              (
+                inputRef as React.MutableRefObject<HTMLInputElement | null>
+              ).current = node;
+            }}
+            defaultValue={value}
             onChange={handleChange}
             onFocus={handleFocus}
             onBlur={handleBlur}
             {...props}
             className={clsx(
-              // Base styles
-              "w-full rounded-md transition-all duration-200",
-              "text-secondary-900 placeholder-secondary-400",
-              "focus:outline-none",
-              "disabled:bg-secondary-50 disabled:text-secondary-500 disabled:cursor-not-allowed",
-
-              // Variant styles
+              "w-full rounded-md border border-gray-600 bg-gray-900 px-3 py-2 text-sm text-text-primary",
+              "file:border-0 file:bg-transparent file:text-sm file:font-medium",
+              "placeholder:text-text-muted",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
+              "disabled:cursor-not-allowed disabled:opacity-50",
               inputVariants[variant],
-
-              // Size styles
               inputSizes[size],
-
-              // Icon padding
               {
                 "pl-10": leftIcon,
-                "pr-10": rightIcon || showClearButton,
+                "pr-10": rightIcon,
               },
-
-              // Error state
               {
-                "border-error-500 focus:border-error-500 focus:ring-error-200":
+                "border-text-error focus:border-text-error focus:ring-red-200":
                   error,
               },
-
-              // Focus state
               {
-                "ring-2 ring-primary-200": isFocused && !error,
+                "ring-2 ring-blue-200": isFocused && !error,
               },
-
               className
             )}
           />
 
-          {showClearButton && (
-            <button
-              type="button"
-              onClick={handleClear}
-              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-secondary-400 hover:text-secondary-600 transition-colors"
-              tabIndex={-1}
-            >
-              <svg
-                className="h-4 w-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M6 18L18 6M6 6l12 12"
-                />
-              </svg>
-            </button>
-          )}
-
-          {rightIcon && !showClearButton && (
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-secondary-400">
+          {rightIcon && (
+            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-secondary">
               {rightIcon}
             </div>
           )}
@@ -180,9 +145,9 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
 
         {(error || helperText) && (
           <div className="mt-1">
-            {error && <p className="text-sm text-error-600">{error}</p>}
+            {error && <p className="text-sm text-text-error">{error}</p>}
             {helperText && !error && (
-              <p className="text-sm text-secondary-500">{helperText}</p>
+              <p className="text-sm text-text-muted">{helperText}</p>
             )}
           </div>
         )}

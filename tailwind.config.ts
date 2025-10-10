@@ -53,6 +53,12 @@ const config: Config = {
           800: "#991b1b",
           900: "#7f1d1d",
         },
+        text: {
+          primary: "#f1f5f9",
+          secondary: "#94a3b8",
+          muted: "#64748b",
+          error: "#ef4444",
+        },
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",

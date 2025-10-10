@@ -3,7 +3,7 @@ import { Button } from "./inputs/Button";
 import { LabelledInput } from "./displays/LabelledInput";
 import { Player } from "./displays/Player";
 import { createNewPlayer } from "../utilities/player";
-import { Loader2 } from "lucide-react";
+import { Loader2, ArrowRight, Plus, Send, RotateCcw } from "lucide-react";
 import { useForm } from "./useForm";
 import clsx from "clsx";
 import { useState } from "react";
@@ -62,8 +62,9 @@ export const Form = () => {
           onClick={() => setCurrentStep("AddUsers")}
           disabled={!canGoToSecondStep}
           className="w-full"
+          rightIcon={<ArrowRight size={16} />}
         >
-          Prochaine étape
+          Ajouter des participants
         </Button>
       </div>
 
@@ -99,7 +100,7 @@ export const Form = () => {
               ))}
             </div>
 
-            <div className="flex flex-col gap-3 max-w-md mx-auto">
+            <div className="flex gap-3 w-100 justify-center">
               <Button
                 type="button"
                 disabled={sendingEmails}
@@ -110,25 +111,31 @@ export const Form = () => {
                   ]);
                   setAutoFocusIndex(players.length);
                 }}
-                className="w-full py-3 text-base font-medium"
+                leftIcon={<Plus size={16} />}
               >
-                {"Ajouter un participant"}
+                {"Ajouter"}
               </Button>
               <Button
                 type="submit"
                 disabled={sendingEmails || players.length < MIN_PLAYERS}
-                className="w-full py-3 text-base font-medium"
+                leftIcon={<Send size={16} />}
               >
-                {"Envoie l'échange!!"}
+                {"Envoyer!"}
               </Button>
             </div>
           </>
         )}
       </div>
       <div className={clsx({ hidden: currentStep !== "ExchangeSent" })}>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-6">
           <h2>{"L'échange est envoyé!"}</h2>
-          <Button onClick={resetExchange}>Commencer un autre échange</Button>
+          <Button
+            className="w-fit m-auto"
+            onClick={resetExchange}
+            leftIcon={<RotateCcw size={16} />}
+          >
+            Commencer un autre échange
+          </Button>
         </div>
       </div>
     </form>
