@@ -96,6 +96,7 @@ export const Form = () => {
                   emailIsInvalid={player.email.error}
                   autoFocusName={index === autoFocusIndex}
                   onDelete={() => onDelete(player.id)}
+                  canDelete={players.length > 1}
                 />
               ))}
             </div>

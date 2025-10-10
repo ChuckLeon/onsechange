@@ -8,6 +8,12 @@ export const metadata: Metadata = {
   title: "Échange de cadeau!",
   description:
     "Site simple et beau pour faire des échanges de cadeaux en famille ou entre amis",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
 };
 
 export default function RootLayout({

@@ -140,7 +140,9 @@ export const useForm = () => {
   };
 
   const onDelete = (id: string) => {
-    setPlayers(players.filter((player) => player.id !== id));
+    if (players.length > 1) {
+      setPlayers(players.filter((player) => player.id !== id));
+    }
   };
 
   const onTopFieldChange = () => {
