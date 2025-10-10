@@ -6,10 +6,11 @@ import { getRandomItemFromArray } from "@/utilities/array";
 import { playersSchema } from "@/utilities/schemas";
 import { ZodIssue, z } from "zod";
 import { emptyPlayer, IPlayer } from "@/utilities/player";
+import { useAppStore } from "@/lib/store";
 
 export const useForm = () => {
+  const { currentStep, setCurrentStep } = useAppStore();
   const [sendingEmails, setSendingEmails] = useState<boolean>(false);
-  const [currentStep, setCurrentStep] = useState<Step>("SetOrganiser");
   const [canGoToSecondStep, setCanGoToSecondStep] = useState<boolean>(false);
   const [players, setPlayers] = useState<IPlayer[]>([{ ...emptyPlayer }]);
   const formRef = useRef<HTMLFormElement>(null);

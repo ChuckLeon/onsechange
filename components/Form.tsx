@@ -7,13 +7,13 @@ import { Loader2 } from "lucide-react";
 import { useForm } from "./useForm";
 import clsx from "clsx";
 import { useState } from "react";
+import { useAppStore } from "@/lib/store";
 
 export const Form = () => {
+  const { currentStep, setCurrentStep } = useAppStore();
   const [autoFocusIndex, setAutoFocusIndex] = useState<number>(0);
   const {
     sendingEmails,
-    currentStep,
-    setCurrentStep,
     canGoToSecondStep,
     players,
     setPlayers,
