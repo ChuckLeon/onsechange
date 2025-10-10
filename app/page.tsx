@@ -1,6 +1,7 @@
 "use client";
 import { Form } from "@/components/Form";
 import Particles from "@/components/visuals/Particles";
+import Header from "@/components/header/Header";
 
 export default function Home() {
   return (
@@ -11,8 +12,8 @@ export default function Home() {
         speed={0.2}
         alphaParticles
       />
+      <Header />
       <div className="flex flex-col items-center gap-4 w-fit p-5 z-10">
-        <h1>{"Échange de cadeau!"}</h1>
         <h3 className="text-center">Concept simple</h3>
         <p className="text-center">
           {`Tu entres les informations de l'échange, tu ajoutes les participants et ensuite t'envoies l'échange 👍`}

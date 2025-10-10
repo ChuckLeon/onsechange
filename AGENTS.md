@@ -26,6 +26,7 @@ Below are some baseline agent-like tips, conventions, and roles for React develo
 - Use ES6+ syntax (const/let, arrow functions, destructuring, etc).
 - Always lint and format your code (Prettier, ESLint).
 - Always proprize wrapping functions and variables in components with `useCallback` or `useMemo`
+- Dont use "React." directly import the component needed
 
 ## Example Agent Task
 
