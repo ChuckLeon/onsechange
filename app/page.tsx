@@ -4,7 +4,7 @@ import Particles from "@/components/visuals/Particles";
 
 export default function Home() {
   return (
-    <div className="app h-full max-w-screen-2xl m-auto p-10 flex justify-center items-center flex-col gap-4">
+    <div className="app h-full max-w-screen-2xl m-auto p-10 flex justify-center items-center flex-col gap-4 bg-background text-white">
       <Particles
         className="z-0"
         particleCount={1000}

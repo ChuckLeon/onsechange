@@ -23,11 +23,11 @@ export const Button = ({
         className,
         `
         py-1 px-4 rounded 
-        text-slate-50
-        bg-slate-950 hover:bg-slate-900 
-        active:bg-slate-700 focus:outline-slate-50 focus:ringfocus:ring-slate-50 
+        text-white
+        bg-primary-800 hover:bg-primary-700 
+        active:bg-primary-600 focus:outline-primary-500 focus:ring-2 focus:ring-primary-500 
         ease-in-out duration-200 
-        disabled:bg-slate-500 disabled:hover:bg-slate-500 disabled:text-slate-950 disabled:opacity-30`,
+        disabled:bg-secondary-600 disabled:hover:bg-secondary-600 disabled:text-secondary-300 disabled:opacity-30`,
         { "rounded-full": rounded },
         { "!p-1": rounded },
         { "w-fit": fitContent }

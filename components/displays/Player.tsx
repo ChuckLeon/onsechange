@@ -35,7 +35,7 @@ export const Player = ({
       <div className="flex flex-col">
         <label
           htmlFor={fieldName}
-          className={clsx("text-2xl", { "text-red-500": nameIsInvalid })}
+          className={clsx("text-2xl", { "text-error": nameIsInvalid })}
         >
           Nom
         </label>
@@ -43,16 +43,16 @@ export const Player = ({
           type="text"
           name={fieldName}
           id={fieldName}
-          className={clsx("w-96", { "text-red-500": nameIsInvalid })}
+          className={clsx("w-96", { "text-error border-error": nameIsInvalid })}
           required
           autoFocus={autoFocusName}
         />
-        {nameIsInvalid && <p className="text-red-500">Nom invalide</p>}
+        {nameIsInvalid && <p className="text-error">Nom invalide</p>}
       </div>
       <div className="flex flex-col">
         <label
           htmlFor={fieldEmail}
-          className={clsx("text-2xl", { "text-red-500": emailIsInvalid })}
+          className={clsx("text-2xl", { "text-error": emailIsInvalid })}
         >
           Email
         </label>
@@ -60,10 +60,12 @@ export const Player = ({
           type="email"
           name={fieldEmail}
           id={fieldEmail}
-          className={clsx("w-96", { "text-red-500": emailIsInvalid })}
+          className={clsx("w-96", {
+            "text-error border-error": emailIsInvalid,
+          })}
           required
         />
-        {emailIsInvalid && <p className="text-red-500">Email invalide</p>}
+        {emailIsInvalid && <p className="text-error">Email invalide</p>}
       </div>
     </div>
   );

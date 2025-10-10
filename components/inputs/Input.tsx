@@ -9,7 +9,10 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
       <input
         ref={ref}
         {...props}
-        className={clsx("w-96 bg-white rounded p-2 text-stone-950", className)}
+        className={clsx(
+          "w-96 bg-white rounded p-2 text-secondary-900 border border-secondary-300 focus:border-primary-500 focus:ring-2 focus:ring-primary-200",
+          className
+        )}
       />
     );
   }
