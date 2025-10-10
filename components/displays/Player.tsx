@@ -28,11 +28,11 @@ export const Player = ({
     <div className="relative bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-4 shadow-lg min-h-[200px] flex flex-col">
       <Button
         onClick={onDelete}
-        rounded
-        fitContent
-        className="absolute top-2 right-2 bg-red-500/20 hover:bg-red-500/30 border border-red-400/30"
+        variant="ghost"
+        size="sm"
+        className="absolute top-2 right-2 h-8 w-8 p-0 rounded-full text-white/70 hover:text-white hover:bg-red-500/20 hover:border-red-400/30 border border-transparent transition-all"
       >
-        <X size={14} />
+        <X size={16} />
       </Button>
 
       <h3 className="text-lg font-semibold text-white mb-3 pr-8">{title}</h3>
