@@ -67,24 +67,39 @@ export const Form = () => {
         </Button>
       </div>
 
-      <div className={clsx({ hidden: currentStep !== "AddUsers" })}>
+      <div
+        className={clsx("w-full max-w-6xl", {
+          hidden: currentStep !== "AddUsers",
+        })}
+      >
         {sendingEmails ? (
-          <Loader2 className="spin" />
+          <div className="flex justify-center items-center py-8">
+            <Loader2 className="h-8 w-8 animate-spin text-white" />
+          </div>
         ) : (
           <>
-            {players.map((player, index) => (
-              <Player
-                key={player.id}
-                fieldBase={index.toString()}
-                title={`Participant ${index + 1}`}
-                nameIsInvalid={player.name.error}
-                emailIsInvalid={player.email.error}
-                autoFocusName={index === autoFocusIndex}
-                onDelete={() => onDelete(player.id)}
-              />
-            ))}
+            <div
+              className={clsx("grid gap-3 mb-6", {
+                "grid-cols-1": players.length === 1,
+                "grid-cols-1 md:grid-cols-2": players.length === 2,
+                "grid-cols-1 md:grid-cols-2 lg:grid-cols-3":
+                  players.length >= 3,
+              })}
+            >
+              {players.map((player, index) => (
+                <Player
+                  key={player.id}
+                  fieldBase={index.toString()}
+                  title={`Participant ${index + 1}`}
+                  nameIsInvalid={player.name.error}
+                  emailIsInvalid={player.email.error}
+                  autoFocusName={index === autoFocusIndex}
+                  onDelete={() => onDelete(player.id)}
+                />
+              ))}
+            </div>
 
-            <div className="flex flex-col gap-2">
+            <div className="flex flex-col gap-3 max-w-md mx-auto">
               <Button
                 type="button"
                 disabled={sendingEmails}
@@ -95,12 +110,14 @@ export const Form = () => {
                   ]);
                   setAutoFocusIndex(players.length);
                 }}
+                className="w-full py-3 text-base font-medium"
               >
                 {"Ajouter un participant"}
               </Button>
               <Button
                 type="submit"
                 disabled={sendingEmails || players.length < MIN_PLAYERS}
+                className="w-full py-3 text-base font-medium"
               >
                 {"Envoie l'échange!!"}
               </Button>
