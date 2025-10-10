@@ -9,9 +9,7 @@ export default function Home() {
         className="z-0"
         particleCount={1000}
         speed={0.2}
-        moveParticlesOnHover={false}
         alphaParticles
-        disableRotation
       />
       <div className="flex flex-col items-center gap-4 w-fit p-5 z-10">
         <h1>{"Échange de cadeau!"}</h1>

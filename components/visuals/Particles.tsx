@@ -9,13 +9,11 @@ interface ParticlesProps {
   particleSpread?: number;
   speed?: number;
   particleColors?: string[];
-  moveParticlesOnHover?: boolean;
   particleHoverFactor?: number;
   alphaParticles?: boolean;
   particleBaseSize?: number;
   sizeRandomness?: number;
   cameraDistance?: number;
-  disableRotation?: boolean;
   className?: string;
 }
 
@@ -111,13 +109,10 @@ const Particles: React.FC<ParticlesProps> = ({
   particleSpread = 10,
   speed = 0.1,
   particleColors,
-  moveParticlesOnHover = false,
-  particleHoverFactor = 1,
   alphaParticles = false,
   particleBaseSize = 100,
   sizeRandomness = 1,
   cameraDistance = 20,
-  disableRotation = false,
   className,
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -150,10 +145,6 @@ const Particles: React.FC<ParticlesProps> = ({
       const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
       mouseRef.current = { x, y };
     };
-
-    if (moveParticlesOnHover) {
-      container.addEventListener("mousemove", handleMouseMove);
-    }
 
     const count = particleCount;
     const positions = new Float32Array(count * 3);
@@ -216,19 +207,8 @@ const Particles: React.FC<ParticlesProps> = ({
 
       program.uniforms.uTime.value = elapsed * 0.001;
 
-      if (moveParticlesOnHover) {
-        particles.position.x = -mouseRef.current.x * particleHoverFactor;
-        particles.position.y = -mouseRef.current.y * particleHoverFactor;
-      } else {
-        particles.position.x = 0;
-        particles.position.y = 0;
-      }
-
-      if (!disableRotation) {
-        particles.rotation.x = Math.sin(elapsed * 0.0002) * 0.1;
-        particles.rotation.y = Math.cos(elapsed * 0.0005) * 0.15;
-        particles.rotation.z += 0.01 * speed;
-      }
+      particles.position.x = 0;
+      particles.position.y = 0;
 
       renderer.render({ scene: particles, camera });
     };
@@ -237,10 +217,8 @@ const Particles: React.FC<ParticlesProps> = ({
 
     return () => {
       window.removeEventListener("resize", resize);
-      if (moveParticlesOnHover) {
-        container.removeEventListener("mousemove", handleMouseMove);
-      }
       cancelAnimationFrame(animationFrameId);
+
       if (container.contains(gl.canvas)) {
         container.removeChild(gl.canvas);
       }
@@ -249,13 +227,10 @@ const Particles: React.FC<ParticlesProps> = ({
     particleCount,
     particleSpread,
     speed,
-    moveParticlesOnHover,
-    particleHoverFactor,
     alphaParticles,
     particleBaseSize,
     sizeRandomness,
     cameraDistance,
-    disableRotation,
     particleColors,
   ]);
 
