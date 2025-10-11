@@ -1,0 +1,201 @@
+// SCSS Spacing Variables
+// This file contains SCSS variables and CSS custom properties for consistent spacing throughout the application
+
+:root {
+  // CSS Custom Properties for Spacing (in rem)
+  // Based on 16px = 1rem standard
+  --spacing-0: 0;
+  --spacing-1: 0.0625rem; // 1px
+  --spacing-2: 0.125rem; // 2px
+  --spacing-3: 0.1875rem; // 3px
+  --spacing-4: 0.25rem; // 4px
+  --spacing-5: 0.3125rem; // 5px
+  --spacing-6: 0.375rem; // 6px
+  --spacing-8: 0.5rem; // 8px
+  --spacing-10: 0.625rem; // 10px
+  --spacing-12: 0.75rem; // 12px
+  --spacing-14: 0.875rem; // 14px
+  --spacing-16: 1rem; // 16px
+  --spacing-18: 1.125rem; // 18px
+  --spacing-20: 1.25rem; // 20px
+  --spacing-24: 1.5rem; // 24px
+  --spacing-28: 1.75rem; // 28px
+  --spacing-32: 2rem; // 32px
+  --spacing-36: 2.25rem; // 36px
+  --spacing-40: 2.5rem; // 40px
+  --spacing-44: 2.75rem; // 44px
+  --spacing-48: 3rem; // 48px
+  --spacing-52: 3.25rem; // 52px
+  --spacing-56: 3.5rem; // 56px
+  --spacing-60: 3.75rem; // 60px
+  --spacing-64: 4rem; // 64px
+  --spacing-72: 4.5rem; // 72px
+  --spacing-80: 5rem; // 80px
+  --spacing-96: 6rem; // 96px
+  --spacing-112: 7rem; // 112px
+  --spacing-128: 8rem; // 128px
+  --spacing-144: 9rem; // 144px
+  --spacing-160: 10rem; // 160px
+  --spacing-176: 11rem; // 176px
+  --spacing-192: 12rem; // 192px
+  --spacing-208: 13rem; // 208px
+  --spacing-224: 14rem; // 224px
+  --spacing-240: 15rem; // 240px
+  --spacing-256: 16rem; // 256px
+}
+
+// SCSS Variables (in rem)
+// Based on 16px = 1rem standard
+$spacing-0: 0;
+$spacing-1: 0.0625rem; // 1px
+$spacing-2: 0.125rem; // 2px
+$spacing-3: 0.1875rem; // 3px
+$spacing-4: 0.25rem; // 4px
+$spacing-5: 0.3125rem; // 5px
+$spacing-6: 0.375rem; // 6px
+$spacing-8: 0.5rem; // 8px
+$spacing-10: 0.625rem; // 10px
+$spacing-12: 0.75rem; // 12px
+$spacing-14: 0.875rem; // 14px
+$spacing-16: 1rem; // 16px
+$spacing-18: 1.125rem; // 18px
+$spacing-20: 1.25rem; // 20px
+$spacing-24: 1.5rem; // 24px
+$spacing-28: 1.75rem; // 28px
+$spacing-32: 2rem; // 32px
+$spacing-36: 2.25rem; // 36px
+$spacing-40: 2.5rem; // 40px
+$spacing-44: 2.75rem; // 44px
+$spacing-48: 3rem; // 48px
+$spacing-52: 3.25rem; // 52px
+$spacing-56: 3.5rem; // 56px
+$spacing-60: 3.75rem; // 60px
+$spacing-64: 4rem; // 64px
+$spacing-72: 4.5rem; // 72px
+$spacing-80: 5rem; // 80px
+$spacing-96: 6rem; // 96px
+$spacing-112: 7rem; // 112px
+$spacing-128: 8rem; // 128px
+$spacing-144: 9rem; // 144px
+$spacing-160: 10rem; // 160px
+$spacing-176: 11rem; // 176px
+$spacing-192: 12rem; // 192px
+$spacing-208: 13rem; // 208px
+$spacing-224: 14rem; // 224px
+$spacing-240: 15rem; // 240px
+$spacing-256: 16rem; // 256px
+
+// Generate spacing utility classes
+$spacing-values: (
+  0: $spacing-0,
+  1: $spacing-1,
+  2: $spacing-2,
+  3: $spacing-3,
+  4: $spacing-4,
+  5: $spacing-5,
+  6: $spacing-6,
+  8: $spacing-8,
+  10: $spacing-10,
+  12: $spacing-12,
+  14: $spacing-14,
+  16: $spacing-16,
+  18: $spacing-18,
+  20: $spacing-20,
+  24: $spacing-24,
+  28: $spacing-28,
+  32: $spacing-32,
+  36: $spacing-36,
+  40: $spacing-40,
+  44: $spacing-44,
+  48: $spacing-48,
+  52: $spacing-52,
+  56: $spacing-56,
+  60: $spacing-60,
+  64: $spacing-64,
+  72: $spacing-72,
+  80: $spacing-80,
+  96: $spacing-96,
+  112: $spacing-112,
+  128: $spacing-128,
+  144: $spacing-144,
+  160: $spacing-160,
+  176: $spacing-176,
+  192: $spacing-192,
+  208: $spacing-208,
+  224: $spacing-224,
+  240: $spacing-240,
+  256: $spacing-256,
+);
+
+// Generate margin classes
+@each $size, $value in $spacing-values {
+  .m-#{$size} {
+    margin: $value;
+  }
+
+  .mt-#{$size} {
+    margin-top: $value;
+  }
+
+  .mr-#{$size} {
+    margin-right: $value;
+  }
+
+  .mb-#{$size} {
+    margin-bottom: $value;
+  }
+
+  .ml-#{$size} {
+    margin-left: $value;
+  }
+
+  .mx-#{$size} {
+    margin-left: $value;
+    margin-right: $value;
+  }
+
+  .my-#{$size} {
+    margin-top: $value;
+    margin-bottom: $value;
+  }
+}
+
+// Generate padding classes
+@each $size, $value in $spacing-values {
+  .p-#{$size} {
+    padding: $value;
+  }
+
+  .pt-#{$size} {
+    padding-top: $value;
+  }
+
+  .pr-#{$size} {
+    padding-right: $value;
+  }
+
+  .pb-#{$size} {
+    padding-bottom: $value;
+  }
+
+  .pl-#{$size} {
+    padding-left: $value;
+  }
+
+  .px-#{$size} {
+    padding-left: $value;
+    padding-right: $value;
+  }
+
+  .py-#{$size} {
+    padding-top: $value;
+    padding-bottom: $value;
+  }
+}
+
+// Generate gap classes
+@each $size, $value in $spacing-values {
+  .gap-#{$size} {
+    gap: $value;
+  }
+}
