@@ -1,5 +1,5 @@
 "use client";
-import { Form } from "@/components/Form";
+import { Game } from "@/components/Game";
 import Particles from "@/components/visuals/Particles";
 import Header from "@/components/header/Header";
 import { useAppStore } from "@/lib/store";
@@ -27,7 +27,7 @@ export default function Home() {
           </p>
         </div>
       )}
-      <Form />
+      <Game />
     </div>
   );
 }

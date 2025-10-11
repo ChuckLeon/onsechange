@@ -8,7 +8,7 @@ import { ZodIssue, z } from "zod";
 import { emptyPlayer, IPlayer } from "@/utilities/player";
 import { useAppStore } from "@/lib/store";
 
-export const useForm = () => {
+export const useGame = () => {
   const { currentStep, setCurrentStep } = useAppStore();
   const [sendingEmails, setSendingEmails] = useState<boolean>(false);
   const [canGoToSecondStep, setCanGoToSecondStep] = useState<boolean>(false);

@@ -4,12 +4,12 @@ import { LabelledInput } from "./displays/LabelledInput";
 import { Player } from "./displays/Player";
 import { createNewPlayer } from "../utilities/player";
 import { Loader2, ArrowRight, Plus, Send, RotateCcw } from "lucide-react";
-import { useForm } from "./useForm";
+import { useGame } from "./useGame";
 import clsx from "clsx";
 import { useState } from "react";
 import { useAppStore } from "@/lib/store";
 
-export const Form = () => {
+export const Game = () => {
   const { currentStep, setCurrentStep } = useAppStore();
   const [autoFocusIndex, setAutoFocusIndex] = useState<number>(0);
   const {
@@ -25,7 +25,7 @@ export const Form = () => {
     onTopFieldChange,
     resetExchange,
     onDelete,
-  } = useForm();
+  } = useGame();
 
   return (
     <form
