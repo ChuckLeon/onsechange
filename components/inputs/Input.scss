@@ -10,7 +10,7 @@
     font-size: 0.875rem;
     font-weight: 500;
     color: var(--color-text-primary);
-    margin-bottom: var(--spacing-1);
+    margin-bottom: var(--spacing-2);
   }
 
   &__container {
@@ -19,6 +19,7 @@
 
   &__field {
     width: 100%;
+    max-width: 24rem;
     border: 1px solid var(--color-gray-600);
     background-color: var(--color-gray-900);
     color: var(--color-text-primary);
@@ -84,26 +85,26 @@
     }
 
     &--sm {
-      padding: var(--spacing-3) var(--spacing-3);
+      padding: var(--spacing-2) var(--spacing-3);
       font-size: 0.875rem;
     }
 
     &--md {
-      padding: var(--spacing-4) var(--spacing-3);
+      padding: var(--spacing-8) var(--spacing-12);
       font-size: 0.875rem;
     }
 
     &--lg {
-      padding: var(--spacing-6) var(--spacing-4);
+      padding: var(--spacing-4) var(--spacing-5);
       font-size: 1rem;
     }
 
     &--with-left-icon {
-      padding-left: 2.5rem;
+      padding-left: var(--spacing-12);
     }
 
     &--with-right-icon {
-      padding-right: 2.5rem;
+      padding-right: var(--spacing-12);
     }
 
     &--error {
@@ -137,7 +138,7 @@
   }
 
   &__message {
-    margin-top: var(--spacing-1);
+    margin-top: var(--spacing-2);
 
     &--error {
       color: var(--color-text-error);

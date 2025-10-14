@@ -6,10 +6,10 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-8);
+  gap: var(--spacing-4);
   font-weight: 500;
   transition: all 0.2s ease-in-out;
-  border-radius: var(--spacing-6);
+  border-radius: var(--radius-sm);
   border: 1px solid;
   cursor: pointer;
   text-decoration: none;
@@ -27,26 +27,26 @@
   }
 
   &--sm {
-    height: rem(32);
+    height: rem(24);
     padding: 0 var(--spacing-12);
     font-size: rem(14);
   }
 
   &--md {
-    height: rem(40);
-    padding: 0 var(--spacing-16);
+    height: rem(36);
+    padding: 0 var(--spacing-12);
     font-size: rem(14);
   }
 
   &--lg {
-    height: rem(44);
-    padding: 0 var(--spacing-32);
+    height: rem(40);
+    padding: 0 var(--spacing-24);
     font-size: rem(14);
   }
 
   &--xl {
-    height: rem(48);
-    padding: 0 var(--spacing-40);
+    height: rem(44);
+    padding: 0 var(--spacing-24);
     font-size: rem(16);
   }
 
@@ -139,14 +139,6 @@
 
   &__icon {
     flex-shrink: 0;
-
-    &--left {
-      margin-right: var(--spacing-4);
-    }
-
-    &--right {
-      margin-left: var(--spacing-4);
-    }
   }
 }
 
