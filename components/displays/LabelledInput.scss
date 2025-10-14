@@ -1,0 +1,20 @@
+@import "../../styling/colors.scss";
+@import "../../styling/spacing.scss";
+@import "../../styling/helpers.scss";
+
+.labelled-input {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-4);
+
+  &__label {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+  }
+
+  &__input {
+    width: 24rem;
+  }
+}

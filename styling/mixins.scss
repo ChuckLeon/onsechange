@@ -1,0 +1,36 @@
+// SCSS Mixins
+// This file contains reusable mixins for consistent styling
+
+// Breakpoints object
+$breakpoints: (
+  mobile: 744px,
+  tablet: 1024px,
+  desktop: 1200px,
+);
+
+// Media query mixins for responsive design
+@mixin media-min($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+  @if $value {
+    @media (min-width: $value) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+@mixin media-max($breakpoint) {
+  $value: map-get($breakpoints, $breakpoint);
+  @if $value {
+    @media (max-width: $value) {
+      @content;
+    }
+  } @else {
+    @media (max-width: $breakpoint) {
+      @content;
+    }
+  }
+}

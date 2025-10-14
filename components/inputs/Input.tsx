@@ -6,6 +6,7 @@ import {
   useCallback,
 } from "react";
 import clsx from "clsx";
+import "./Input.scss";
 
 type InputVariant = "default" | "filled" | "outline" | "underline";
 type InputSize = "sm" | "md" | "lg";
@@ -21,20 +22,16 @@ interface IInput extends Omit<InputHTMLAttributes<HTMLInputElement>, "size"> {
 }
 
 const inputVariants = {
-  default:
-    "bg-gray-900 border border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-200",
-  filled:
-    "bg-gray-800 border-0 focus:bg-gray-900 focus:ring-2 focus:ring-blue-200",
-  outline:
-    "bg-transparent border-2 border-gray-600 focus:border-blue-500 focus:ring-2 focus:ring-blue-200",
-  underline:
-    "bg-transparent border-0 border-b-2 border-gray-600 focus:border-blue-500 rounded-none",
+  default: "input__field--default",
+  filled: "input__field--filled",
+  outline: "input__field--outline",
+  underline: "input__field--underline",
 };
 
 const inputSizes = {
-  sm: "px-3 py-1.5 text-sm",
-  md: "px-3 py-2 text-sm",
-  lg: "px-4 py-3 text-base",
+  sm: "input__field--sm",
+  md: "input__field--md",
+  lg: "input__field--lg",
 };
 
 export const Input = forwardRef<HTMLInputElement, IInput>(
@@ -81,18 +78,12 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
     );
 
     return (
-      <div className="w-full">
-        {label && (
-          <label className="block text-sm font-medium text-text-primary mb-1">
-            {label}
-          </label>
-        )}
+      <div className="input">
+        {label && <label className="input__label">{label}</label>}
 
-        <div className="relative">
+        <div className="input__container">
           {leftIcon && (
-            <div className="absolute left-3 top-1/2 transform -translate-y-1/2 text-text-secondary">
-              {leftIcon}
-            </div>
+            <div className="input__icon input__icon--left">{leftIcon}</div>
           )}
 
           <input
@@ -114,40 +105,33 @@ export const Input = forwardRef<HTMLInputElement, IInput>(
             onBlur={handleBlur}
             {...props}
             className={clsx(
-              "w-full rounded-md border border-gray-600 bg-gray-900 px-3 py-2 text-sm text-text-primary",
-              "file:border-0 file:bg-transparent file:text-sm file:font-medium",
-              "placeholder:text-text-muted",
-              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2",
-              "disabled:cursor-not-allowed disabled:opacity-50",
+              "input__field",
               inputVariants[variant],
               inputSizes[size],
               {
-                "pl-10": leftIcon,
-                "pr-10": rightIcon,
+                "input__field--with-left-icon": leftIcon,
+                "input__field--with-right-icon": rightIcon,
               },
               {
-                "border-text-error focus:border-text-error focus:ring-red-200":
-                  error,
+                "input__field--error": error,
               },
               {
-                "ring-2 ring-blue-200": isFocused && !error,
+                "input__field--focused": isFocused && !error,
               },
               className
             )}
           />
 
           {rightIcon && (
-            <div className="absolute right-3 top-1/2 transform -translate-y-1/2 text-text-secondary">
-              {rightIcon}
-            </div>
+            <div className="input__icon input__icon--right">{rightIcon}</div>
           )}
         </div>
 
         {(error || helperText) && (
-          <div className="mt-1">
-            {error && <p className="text-sm text-text-error">{error}</p>}
+          <div className="input__message">
+            {error && <p className="input__message--error">{error}</p>}
             {helperText && !error && (
-              <p className="text-sm text-text-muted">{helperText}</p>
+              <p className="input__message--helper">{helperText}</p>
             )}
           </div>
         )}

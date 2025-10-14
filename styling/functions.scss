@@ -1,0 +1,12 @@
+$_base-font-size: 16;
+
+@function rem($pxValue) {
+  @return ($pxValue / $_base-font-size) * 1rem;
+}
+
+@function hex-opacity($hex, $opacity) {
+  $red: red($hex);
+  $green: green($hex);
+  $blue: blue($hex);
+  @return rgba($red, $green, $blue, $opacity);
+}

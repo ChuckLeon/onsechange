@@ -1,5 +1,6 @@
 import React from "react";
 import { Input } from "../inputs/Input";
+import "./LabelledInput.scss";
 
 interface ILablledInput {
   label: string;
@@ -12,8 +13,8 @@ interface ILablledInput {
 export const LabelledInput = React.forwardRef<HTMLInputElement, ILablledInput>(
   ({ label, inputName, inputId, autoFocus, onChange }, ref) => {
     return (
-      <>
-        <label htmlFor={inputName} className="text-2xl">
+      <div className="labelled-input">
+        <label htmlFor={inputName} className="labelled-input__label">
           {label}
         </label>
         <Input
@@ -21,11 +22,11 @@ export const LabelledInput = React.forwardRef<HTMLInputElement, ILablledInput>(
           type="text"
           name={inputName}
           id={inputId}
-          className="w-96"
+          className="labelled-input__input"
           autoFocus={autoFocus}
           onChange={onChange}
         />
-      </>
+      </div>
     );
   }
 );

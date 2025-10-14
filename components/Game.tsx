@@ -1,13 +1,14 @@
 "use client";
-import { Button } from "./inputs/Button";
 import { LabelledInput } from "./displays/LabelledInput";
-import { Player } from "./displays/Player";
+import { Player } from "./Player/Player";
 import { createNewPlayer } from "../utilities/player";
 import { Loader2, ArrowRight, Plus, Send, RotateCcw } from "lucide-react";
 import { useGame } from "./useGame";
 import clsx from "clsx";
 import { useState } from "react";
 import { useAppStore } from "@/lib/store";
+import { Button } from "./Button/Button";
+import "./Game.scss";
 
 export const Game = () => {
   const { currentStep, setCurrentStep } = useAppStore();
@@ -28,17 +29,13 @@ export const Game = () => {
   } = useGame();
 
   return (
-    <form
-      ref={formRef}
-      onSubmit={handleSubmit}
-      className="w-fit flex flex-col items-start gap-2 z-10"
-    >
+    <form ref={formRef} onSubmit={handleSubmit} className="game">
       <div
-        className={clsx("flex flex-col items-start gap-4", {
-          hidden: currentStep !== "SetOrganiser",
+        className={clsx("game__organiser-section", {
+          "game__organiser-section--hidden": currentStep !== "SetOrganiser",
         })}
       >
-        <div className="flex flex-col gap-2">
+        <div className="game__form-fields">
           <LabelledInput
             label="Nom de l'échange"
             inputName="exchangeName"
@@ -69,22 +66,21 @@ export const Game = () => {
       </div>
 
       <div
-        className={clsx("w-full max-w-6xl", {
-          hidden: currentStep !== "AddUsers",
+        className={clsx("game__users-section", {
+          "game__users-section--hidden": currentStep !== "AddUsers",
         })}
       >
         {sendingEmails ? (
-          <div className="flex justify-center items-center py-8">
-            <Loader2 className="h-8 w-8 animate-spin text-white" />
+          <div className="game__loading-container">
+            <Loader2 className="game__loading-spinner" />
           </div>
         ) : (
           <>
             <div
-              className={clsx("grid gap-3 mb-6", {
-                "grid-cols-1": players.length === 1,
-                "grid-cols-1 md:grid-cols-2": players.length === 2,
-                "grid-cols-1 md:grid-cols-2 lg:grid-cols-3":
-                  players.length >= 3,
+              className={clsx("game__players-grid", {
+                "game__players-grid--single": players.length === 1,
+                "game__players-grid--double": players.length === 2,
+                "game__players-grid--triple": players.length >= 3,
               })}
             >
               {players.map((player, index) => (
@@ -101,7 +97,7 @@ export const Game = () => {
               ))}
             </div>
 
-            <div className="flex gap-3 w-100 justify-center">
+            <div className="game__actions">
               <Button
                 type="button"
                 disabled={sendingEmails}
@@ -127,11 +123,15 @@ export const Game = () => {
           </>
         )}
       </div>
-      <div className={clsx({ hidden: currentStep !== "ExchangeSent" })}>
-        <div className="flex flex-col gap-6">
-          <h2>{"L'échange est envoyé!"}</h2>
+      <div
+        className={clsx("game__success-section", {
+          "game__success-section--hidden": currentStep !== "ExchangeSent",
+        })}
+      >
+        <div className="game__success-content">
+          <h2 className="game__success-title">{"L'échange est envoyé!"}</h2>
           <Button
-            className="w-fit m-auto"
+            className="game__reset-button"
             onClick={resetExchange}
             leftIcon={<RotateCcw size={16} />}
           >
