@@ -2,9 +2,11 @@
 @import "../styling/spacing.scss";
 @import "../styling/helpers.scss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
@@ -22,8 +24,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
-.app {
-  min-height: 100vh;
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
 }
 
 a {

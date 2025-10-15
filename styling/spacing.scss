@@ -87,6 +87,7 @@ $spacing-256: 16rem; // 256px
 
 // Generate spacing utility classes
 $spacing-values: (
+  auto: auto,
   0: $spacing-0,
   1: $spacing-1,
   2: $spacing-2,
