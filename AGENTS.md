@@ -12,28 +12,41 @@ Below are some baseline agent-like tips, conventions, and roles for React develo
 - Use prop-types or TypeScript for type safety.
 - Separate logic, style, and markup for better maintainability.
 - Use descriptive variable and function names.
-- Keep code DRY (Don’t Repeat Yourself).
+- Keep code DRY (Don't Repeat Yourself).
 - Try to avoid `useEffect` as much as possible
 - Comment when it is absolutely necessary, otherwise, don't
 
-## Guidelines
+## React Guidelines
+
+### Component Structure
 
 - Use function components and React hooks.
 - Use `.tsx` extensions for React components.
 - Keep each component in its own file when practical.
 - Avoid unnecessary dependencies.
 - Ensure UI and logic is accessible and responsive.
+
+### Code Style
+
 - Use ES6+ syntax (const/let, arrow functions, destructuring, etc).
 - Always lint and format your code (Prettier, ESLint).
-- Always proprize wrapping functions and variables in components with `useCallback` or `useMemo`
-- Dont use "React." directly import the component needed
+- Always prioritize wrapping functions and variables in components with `useCallback` or `useMemo`
+- Don't use "React." directly - import the component needed
 
-### SCSS
+## SCSS Guidelines
 
-- Don't use comments
-- Follow BEM standards
-- Use helper classes and css variables we made in helpers.scss, colors.scss, spacing.scss
-- use HEX for colors
+### Styling Standards
+
+- Don't use comments in SCSS files
+- Follow BEM (Block Element Modifier) standards
+- Use helper classes and CSS variables from helpers.scss, colors.scss, spacing.scss
+- Use HEX values for colors
+- **Do not use Tailwind CSS** - use SCSS instead
+
+### File Organization
+
+- Keep component styles in separate `.scss` files alongside components
+- Use the existing styling system and variables
 
 ## Example Agent Task
 
