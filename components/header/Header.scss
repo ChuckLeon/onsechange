@@ -1,13 +1,14 @@
 @import "../../styling/colors.scss";
 @import "../../styling/spacing.scss";
 @import "../../styling/helpers.scss";
+@import "../../styling/functions.scss";
 
 .header {
   position: fixed;
   left: 50%;
   top: var(--spacing-32);
   transform: translateX(-50%);
-  z-index: 20;
+  z-index: 2;
 
   &__content {
     display: flex;
@@ -15,14 +16,15 @@
     justify-content: center;
     padding: var(--spacing-16) var(--spacing-32);
     gap: var(--spacing-12);
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: css-var-opacity(var(--color-primary-500), 0.1);
     backdrop-filter: blur(8px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--color-primary-300);
     border-radius: var(--spacing-16);
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.15),
-      0 0 8px rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px css-var-opacity(var(--color-primary-500), 0.2),
+      0 0 8px css-var-opacity(var(--color-primary-500), 0.1);
     font-size: 1.125rem;
     font-weight: 600;
     min-width: 300px;
+    color: var(--color-text-primary);
   }
 }

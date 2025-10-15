@@ -1,13 +1,13 @@
 "use client";
 import { LabelledInput } from "./displays/LabelledInput";
-import { Player } from "./Player/Player";
+import { Player } from "./player/Player";
 import { createNewPlayer } from "../utilities/player";
 import { Loader2, ArrowRight, Plus, Send, RotateCcw } from "lucide-react";
 import { useGame } from "./useGame";
 import clsx from "clsx";
 import { useState } from "react";
 import { useAppStore } from "@/lib/store";
-import { Button } from "./Button/Button";
+import { Button } from "./button/Button";
 import "./Game.scss";
 
 export const Game = () => {
@@ -58,7 +58,7 @@ export const Game = () => {
           type="submit"
           onClick={() => setCurrentStep("AddUsers")}
           disabled={!canGoToSecondStep}
-          className="w-full"
+          className="m-auto"
           rightIcon={<ArrowRight size={16} />}
         >
           Ajouter des participants

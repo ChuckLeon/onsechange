@@ -5,13 +5,13 @@
 
 .player {
   position: relative;
-  background-color: hex-opacity($color-white, 0.05);
+  background-color: css-var-opacity(var(--color-white), 0.05);
   backdrop-filter: blur(8px);
-  border: 1px solid hex-opacity($color-white, 0.1);
+  border: 1px solid css-var-opacity(var(--color-white), 0.1);
   border-radius: var(--radius-lg);
   padding: var(--spacing-16);
-  box-shadow: 0 10px 15px -3px hex-opacity($color-black, 0.1),
-    0 4px 6px -2px hex-opacity($color-black, 0.05);
+  box-shadow: 0 10px 15px -3px css-var-opacity(var(--color-black), 0.1),
+    0 4px 6px -2px css-var-opacity(var(--color-black), 0.05);
   min-height: 200px;
   min-width: 300px;
   display: flex;
@@ -25,14 +25,14 @@
     width: 2rem;
     padding: 0;
     border-radius: var(--radius-full);
-    color: hex-opacity($color-white, 0.7) !important;
+    color: css-var-opacity(var(--color-white), 0.7) !important;
     border: 1px solid transparent;
     transition: all 0.2s ease-in-out;
 
     &:hover {
-      color: hex-opacity($color-error-400, 0.8) !important;
-      background-color: hex-opacity($color-error-500, 0.2) !important;
-      border-color: hex-opacity($color-error-400, 0.3) !important;
+      color: css-var-opacity(var(--color-error-400), 0.8) !important;
+      background-color: css-var-opacity(var(--color-error-500), 0.2) !important;
+      border-color: css-var-opacity(var(--color-error-400), 0.3) !important;
     }
   }
 
@@ -61,7 +61,7 @@
     display: block;
     font-size: 0.875rem;
     font-weight: 500;
-    color: hex-opacity($color-white, 0.9);
+    color: css-var-opacity(var(--color-white), 0.9);
 
     &--error {
       color: var(--color-error-400);
@@ -73,8 +73,8 @@
 
     &--error {
       border-color: var(--color-error-400);
-      background-color: hex-opacity($color-error-500, 0.1);
-      color: hex-opacity($color-error-400, 0.8);
+      background-color: css-var-opacity(var(--color-error-500), 0.1);
+      color: css-var-opacity(var(--color-error-400), 0.8);
     }
   }
 

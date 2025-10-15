@@ -4,7 +4,7 @@
 
 .app {
   height: 100%;
-  max-width: 1420px;
+  max-width: rem(1420);
   margin: 0 auto;
   padding: var(--spacing-40);
   display: flex;
@@ -22,7 +22,7 @@
     gap: var(--spacing-16);
     width: fit-content;
     padding: var(--spacing-20);
-    z-index: 10;
+    z-index: 1;
   }
 
   &__intro-title {

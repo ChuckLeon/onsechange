@@ -10,12 +10,7 @@ export default function Home() {
 
   return (
     <div className="app">
-      <Particles
-        className="z-0"
-        particleCount={1000}
-        speed={0.2}
-        alphaParticles
-      />
+      <Particles particleCount={1000} speed={0.2} alphaParticles />
       <Header />
       {currentStep === "SetOrganiser" && (
         <div className="app__intro">

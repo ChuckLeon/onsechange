@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { Renderer, Camera, Geometry, Program, Mesh } from "ogl";
 
-import "./Particles.css";
+import "./Particles.scss";
 import clsx from "clsx";
 
 interface ParticlesProps {
@@ -138,13 +138,6 @@ const Particles: React.FC<ParticlesProps> = ({
     };
     window.addEventListener("resize", resize, false);
     resize();
-
-    const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      const x = ((e.clientX - rect.left) / rect.width) * 2 - 1;
-      const y = -(((e.clientY - rect.top) / rect.height) * 2 - 1);
-      mouseRef.current = { x, y };
-    };
 
     const count = particleCount;
     const positions = new Float32Array(count * 3);

@@ -10,3 +10,7 @@ $_base-font-size: 16;
   $blue: blue($hex);
   @return rgba($red, $green, $blue, $opacity);
 }
+
+@function css-var-opacity($css-var, $opacity) {
+  @return unquote("rgba(from #{$css-var} r g b / #{$opacity})");
+}
