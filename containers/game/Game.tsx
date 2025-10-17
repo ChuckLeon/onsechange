@@ -82,6 +82,14 @@ export const Game = () => {
           </div>
         ) : (
           <>
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setCurrentStep("SetOrganiser")}
+              className="game__back-button"
+              leftIcon={<ArrowLeft size={16} />}
+            />
             <div
               className={clsx("game__players-grid", {
                 "game__players-grid--single": players.length === 1,
@@ -102,15 +110,6 @@ export const Game = () => {
                 />
               ))}
             </div>
-
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={() => setCurrentStep("SetOrganiser")}
-              className="game__back-button"
-              leftIcon={<ArrowLeft size={16} />}
-            />
 
             <div className="game__actions">
               <Button
