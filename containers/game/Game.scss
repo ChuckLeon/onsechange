@@ -1,4 +1,5 @@
 .game {
+  position: relative;
   width: fit-content;
   display: flex;
   flex-direction: column;
@@ -73,6 +74,16 @@
         grid-template-columns: repeat(3, 1fr);
       }
     }
+  }
+
+  &__back-button {
+    position: absolute;
+    top: calc(var(--spacing-40) * -1);
+    left: 0;
+    z-index: 10;
+    border-radius: 50%;
+    width: rem(32);
+    height: rem(32);
   }
 
   &__actions {

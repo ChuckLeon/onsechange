@@ -1,6 +1,13 @@
 "use client";
 import { createNewPlayer } from "../../utilities/player";
-import { Loader2, ArrowRight, Plus, Send, RotateCcw } from "lucide-react";
+import {
+  Loader2,
+  ArrowRight,
+  Plus,
+  Send,
+  RotateCcw,
+  ArrowLeft,
+} from "lucide-react";
 import { useGame } from "./useGame";
 import clsx from "clsx";
 import { useState } from "react";
@@ -95,6 +102,15 @@ export const Game = () => {
                 />
               ))}
             </div>
+
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={() => setCurrentStep("SetOrganiser")}
+              className="game__back-button"
+              leftIcon={<ArrowLeft size={16} />}
+            />
 
             <div className="game__actions">
               <Button
