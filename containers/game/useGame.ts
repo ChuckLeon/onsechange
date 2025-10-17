@@ -1,6 +1,6 @@
 "use client";
 import { FormEvent, useRef, useState } from "react";
-import { Step } from "../utilities/types";
+import { Step } from "../../utilities/types";
 import { sendEmail } from "@/scripts/sendEmail";
 import { getRandomItemFromArray } from "@/utilities/array";
 import { playersSchema } from "@/utilities/schemas";

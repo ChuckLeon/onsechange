@@ -1,7 +1,7 @@
 import { Gift } from "lucide-react";
 import "./Header.scss";
 
-const Header = () => {
+export const Header = () => {
   return (
     <header className="header">
       <div className="header__content">
@@ -11,5 +11,3 @@ const Header = () => {
     </header>
   );
 };
-
-export default Header;

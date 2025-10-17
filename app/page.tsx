@@ -1,7 +1,6 @@
 "use client";
-import { Game } from "@/components/Game";
-import Particles from "@/components/visuals/Particles";
-import Header from "@/components/header/Header";
+import { Header, Particles } from "@/components";
+import { Game } from "@/containers";
 import { useAppStore } from "@/lib/store";
 import "./page.scss";
 

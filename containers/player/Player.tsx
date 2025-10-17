@@ -1,8 +1,7 @@
 import React, { useMemo } from "react";
-import { Input } from "../inputs/Input";
 import { X } from "lucide-react";
 import clsx from "clsx";
-import { Button } from "../button/Button";
+import { Button, Input } from "@/components";
 import "./Player.scss";
 
 interface IPlayerUncontrolledProps {
