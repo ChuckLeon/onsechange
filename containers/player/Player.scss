@@ -1,8 +1,3 @@
-@import "../../styling/colors.scss";
-@import "../../styling/spacing.scss";
-@import "../../styling/helpers.scss";
-@import "../../styling/functions.scss";
-
 .player {
   position: relative;
   background-color: css-var-opacity(var(--color-white), 0.05);

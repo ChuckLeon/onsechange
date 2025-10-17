@@ -34,9 +34,8 @@ export const Player = ({
           variant="ghost"
           size="sm"
           className="player__delete-button"
-        >
-          <X size={16} />
-        </Button>
+          leftIcon={<X size={16} />}
+        />
       )}
 
       <h3 className="player__title">{title}</h3>
