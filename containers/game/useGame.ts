@@ -1,40 +1,85 @@
 "use client";
-import { FormEvent, useRef, useState } from "react";
+import { FormEvent, useCallback, useMemo, useRef, useState } from "react";
 import { Step } from "../../utilities/types";
 import { sendEmail } from "@/scripts/sendEmail";
 import { getRandomItemFromArray } from "@/utilities/array";
 import { playersSchema } from "@/utilities/schemas";
 import { ZodIssue, z } from "zod";
-import { emptyPlayer, IPlayer } from "@/utilities/player";
+import { createNewPlayer, IPlayer, PlayerStatus } from "@/utilities/player";
 import { useAppStore } from "@/lib/store";
+
+const MIN_PLAYERS = 3;
+
+const createInitialPlayers = (): IPlayer[] =>
+  Array.from({ length: MIN_PLAYERS }, () =>
+    createNewPlayer(crypto.randomUUID())
+  );
 
 export const useGame = () => {
   const { currentStep, setCurrentStep } = useAppStore();
   const [sendingEmails, setSendingEmails] = useState<boolean>(false);
   const [canGoToSecondStep, setCanGoToSecondStep] = useState<boolean>(false);
-  const [players, setPlayers] = useState<IPlayer[]>([{ ...emptyPlayer }]);
+  const [players, setPlayers] = useState<IPlayer[]>(createInitialPlayers);
+  const [playerStatuses, setPlayerStatuses] = useState<
+    Record<string, PlayerStatus>
+  >({});
   const formRef = useRef<HTMLFormElement>(null);
   const exchangeNameRef = useRef<HTMLInputElement>(null);
   const organiserNameRef = useRef<HTMLInputElement>(null);
 
-  const MIN_PLAYERS = 3;
+  const filledCount = useMemo(
+    () =>
+      players.filter((player) => playerStatuses[player.id] === "filled").length,
+    [players, playerStatuses]
+  );
+  const startedCount = useMemo(
+    () =>
+      players.filter((player) => playerStatuses[player.id] === "started")
+        .length,
+    [players, playerStatuses]
+  );
+  const canSend = filledCount >= MIN_PLAYERS;
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    if (currentStep === "SetOrganiser") {
+      if (canGoToSecondStep) {
+        setCurrentStep("AddUsers");
+        requestAnimationFrame(() =>
+          formRef.current
+            ?.querySelector<HTMLInputElement>('[name="player0-name"]')
+            ?.focus()
+        );
+      }
+      return;
+    }
+
+    const formData = new FormData(formRef.current!);
+    const formPlayers: IPlayer[] = buildPlayersFromFormData(formData);
+    const startedIndexes = formPlayers
+      .map((_, index) => index)
+      .filter(
+        (index) =>
+          formPlayers[index].name.value.trim() ||
+          formPlayers[index].email.value.trim()
+      );
+    const playersToSend = startedIndexes.map((index) => formPlayers[index]);
+    const errors = await validatePlayers(playersToSend);
+
+    showErrors(
+      (errors ?? []).map((error) => ({
+        index: startedIndexes[error.path[0] as number],
+        field: error.path[1],
+      }))
+    );
+
+    if (errors || playersToSend.length < MIN_PLAYERS) return;
+
     setSendingEmails(true);
 
     try {
-      const formData = new FormData(formRef.current!);
-      const formPlayers: IPlayer[] = buildPlayersFromFormData(formData);
-
-      const errors = await validatePlayers(formPlayers);
-
-      if (errors) {
-        manageErrors(errors);
-        return;
-      }
-
-      await sendToPlayers(formPlayers);
+      await sendToPlayers(playersToSend);
     } catch (error) {
       console.error(error);
     } finally {
@@ -117,33 +162,57 @@ export const useGame = () => {
     return result;
   };
 
-  const manageErrors = (errors: ZodIssue[]) => {
-    setPlayers((prevState) => {
-      const newPlayers = [...prevState];
-      errors.forEach((error) => {
-        const key = error.path[1];
-        const index = error.path[0] as number;
-        if (!newPlayers[index]) return;
-        if (key === "name") newPlayers[index].name.error = true;
-        else if (key === "email") newPlayers[index].email.error = true;
-      });
-      return newPlayers;
-    });
+  const showErrors = (errors: { index: number; field: unknown }[]) => {
+    const hasError = (index: number, field: "name" | "email") =>
+      errors.some((error) => error.index === index && error.field === field);
+
+    setPlayers((prevState) =>
+      prevState.map((player, index) => ({
+        ...player,
+        name: { ...player.name, error: hasError(index, "name") },
+        email: { ...player.email, error: hasError(index, "email") },
+      }))
+    );
   };
 
   const resetExchange = () => {
     setCurrentStep("SetOrganiser");
     if (organiserNameRef.current) organiserNameRef.current.value = "";
     if (exchangeNameRef.current) exchangeNameRef.current.value = "";
-    setPlayers([{ ...emptyPlayer }]);
+    setPlayers(createInitialPlayers());
+    setPlayerStatuses({});
     setCanGoToSecondStep(false);
   };
 
+  const addPlayer = () => {
+    setPlayers([...players, createNewPlayer(crypto.randomUUID())]);
+  };
+
   const onDelete = (id: string) => {
-    if (players.length > 1) {
+    if (players.length > MIN_PLAYERS) {
       setPlayers(players.filter((player) => player.id !== id));
+      setPlayerStatuses(({ [id]: _, ...rest }) => rest);
     }
   };
+
+  const onPlayerChange = useCallback((id: string, status: PlayerStatus) => {
+    setPlayerStatuses((prev) =>
+      prev[id] === status ? prev : { ...prev, [id]: status }
+    );
+    setPlayers((prev) =>
+      prev.some((p) => p.id === id && (p.name.error || p.email.error))
+        ? prev.map((p) =>
+            p.id === id
+              ? {
+                  ...p,
+                  name: { ...p.name, error: false },
+                  email: { ...p.email, error: false },
+                }
+              : p
+          )
+        : prev
+    );
+  }, []);
 
   const onTopFieldChange = () => {
     const hasOrganiser = (organiserNameRef.current?.value ?? "").length > 0;
@@ -156,7 +225,10 @@ export const useGame = () => {
     setCurrentStep,
     canGoToSecondStep,
     players,
-    setPlayers,
+    playerStatuses,
+    filledCount,
+    startedCount,
+    canSend,
     MIN_PLAYERS,
     formRef,
     exchangeNameRef,
@@ -165,5 +237,7 @@ export const useGame = () => {
     onTopFieldChange,
     resetExchange,
     onDelete,
+    addPlayer,
+    onPlayerChange,
   };
 };

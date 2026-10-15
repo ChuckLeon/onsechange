@@ -1,25 +1,25 @@
 .header {
   position: fixed;
-  left: 50%;
-  top: var(--spacing-32);
-  transform: translateX(-50%);
-  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  background-color: css-var-opacity(var(--color-pine-950), 0.85);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--color-pine-800);
 
   &__content {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--spacing-16) var(--spacing-32);
-    gap: var(--spacing-12);
-    background-color: css-var-opacity(var(--color-primary-500), 0.1);
-    backdrop-filter: blur(8px);
-    border: 1px solid var(--color-primary-300);
-    border-radius: var(--spacing-16);
-    box-shadow: 0 0 20px css-var-opacity(var(--color-primary-500), 0.2),
-      0 0 8px css-var-opacity(var(--color-primary-500), 0.1);
-    font-size: 1.125rem;
-    font-weight: 600;
-    min-width: 300px;
-    color: var(--color-text-primary);
+    gap: var(--spacing-10);
+    height: rem(64);
+    padding: 0 var(--spacing-16);
+  }
+
+  &__title {
+    font-family: var(--font-display), Georgia, serif;
+    font-size: 1.25rem;
+    letter-spacing: -0.01em;
   }
 }

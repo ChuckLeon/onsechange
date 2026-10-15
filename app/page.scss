@@ -1,31 +1,74 @@
 .app {
+  position: relative;
   min-height: 100dvh;
-  max-width: rem(1420);
-  margin: 0 auto;
-  padding: var(--spacing-40);
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
-  gap: var(--spacing-16);
+  padding-top: rem(64);
   background-color: var(--color-background);
-  color: var(--color-white);
+  color: var(--color-text-primary);
+
+  &__main {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: rem(1024);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-48);
+    padding: var(--spacing-56) var(--spacing-16) var(--spacing-80);
+
+    @media (min-width: 640px) {
+      padding: var(--spacing-96) var(--spacing-24) var(--spacing-112);
+    }
+
+    &--split {
+      @media (min-width: 1024px) {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) rem(420);
+        align-items: end;
+        gap: var(--spacing-64);
+      }
+    }
+  }
 
   &__intro {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: var(--spacing-16);
-    width: fit-content;
-    padding: var(--spacing-20);
-    z-index: 1;
+  }
+
+  &__eyebrow {
+    margin: 0;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--color-gold-400);
   }
 
   &__intro-title {
-    text-align: center;
+    margin: var(--spacing-24) 0 0;
+    max-width: rem(720);
+    font-family: var(--font-display), Georgia, serif;
+    font-size: clamp(2.5rem, 7vw, 4.75rem);
+    font-weight: 400;
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
   }
 
   &__intro-description {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    max-width: rem(576);
+    margin-top: var(--spacing-40);
+    font-size: 1.125rem;
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+
+    p {
+      margin: 0;
+    }
   }
 }

@@ -1,0 +1,51 @@
+.logo {
+  display: block;
+  flex-shrink: 0;
+  overflow: visible;
+
+  &__box {
+    fill: var(--color-berry-500);
+  }
+
+  &__box-shade {
+    fill: var(--color-berry-600);
+  }
+
+  &__lid-top {
+    fill: var(--color-berry-400);
+  }
+
+  &__ribbon {
+    fill: var(--color-gold-400);
+  }
+
+  &__ribbon-shade {
+    fill: var(--color-gold-600);
+  }
+
+  &__bow-fold {
+    fill: none;
+    stroke: var(--color-gold-600);
+    stroke-linecap: round;
+  }
+
+  &__lid {
+    transform: rotate(-14deg);
+    transform-origin: 3px 15px;
+    transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  &__sparkles {
+    fill: var(--color-cream-50);
+    transform-origin: 23px 12px;
+    transition: transform 300ms ease, opacity 300ms ease;
+  }
+
+  &:hover &__lid {
+    transform: rotate(-22deg) translateY(-1px);
+  }
+
+  &:hover &__sparkles {
+    transform: scale(1.15);
+  }
+}

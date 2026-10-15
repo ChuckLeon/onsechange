@@ -25,10 +25,24 @@
   --color-secondary-900: #0a0e1a;
   --color-secondary-950: #020617;
 
+  // Holiday Colors
+  --color-pine-950: #0d1611;
+  --color-pine-900: #132019;
+  --color-pine-800: #1b2c22;
+  --color-pine-700: #29402f;
+  --color-cream-50: #f7f1e3;
+  --color-cream-200: #d8d0bd;
+  --color-cream-400: #97a294;
+  --color-berry-400: #d75a4f;
+  --color-berry-500: #c4392f;
+  --color-berry-600: #a52e26;
+  --color-gold-400: #d9b26a;
+  --color-gold-600: #b8904a;
+
   // Background Colors
   --color-background-light: #ffffff;
   --color-background-dark: #0f172a;
-  --color-background: #0f172a;
+  --color-background: #0d1611;
 
   // Error Colors
   --color-error-50: #fef2f2;
@@ -44,9 +58,9 @@
   --color-error: #ef4444;
 
   // Text Colors
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
+  --color-text-primary: #f7f1e3;
+  --color-text-secondary: #d8d0bd;
+  --color-text-muted: #97a294;
   --color-text-error: #ef4444;
 
   // Semantic color aliases
@@ -135,6 +149,18 @@ $color-map: (
   secondary-800: var(--color-secondary-800),
   secondary-900: var(--color-secondary-900),
   secondary-950: var(--color-secondary-950),
+  pine-950: var(--color-pine-950),
+  pine-900: var(--color-pine-900),
+  pine-800: var(--color-pine-800),
+  pine-700: var(--color-pine-700),
+  cream-50: var(--color-cream-50),
+  cream-200: var(--color-cream-200),
+  cream-400: var(--color-cream-400),
+  berry-400: var(--color-berry-400),
+  berry-500: var(--color-berry-500),
+  berry-600: var(--color-berry-600),
+  gold-400: var(--color-gold-400),
+  gold-600: var(--color-gold-600),
   error-50: var(--color-error-50),
   error-100: var(--color-error-100),
   error-200: var(--color-error-200),

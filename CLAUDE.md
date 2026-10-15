@@ -8,7 +8,7 @@ A French-language Next.js (App Router) app for organizing gift exchanges ("écha
 
 ## Commands
 
-- `npm run dev` — start dev server (localhost:3000)
+- `npm run dev` — start dev server (localhost:3001)
 - `npm run build` — production build
 - `npm run start` — run production build
 - `npm run lint` — ESLint (`next/core-web-vitals` config)

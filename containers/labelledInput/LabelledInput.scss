@@ -1,16 +1,17 @@
 .labelled-input {
   display: flex;
   flex-direction: column;
-  gap: var(--spacing-4);
+  gap: var(--spacing-8);
+  width: 100%;
 
   &__label {
-    font-size: 1.5rem;
+    font-size: 0.875rem;
     font-weight: 500;
-    color: var(--color-text-primary);
+    color: var(--color-text-secondary);
     line-height: 1.2;
   }
 
   &__input {
-    width: 24rem;
+    width: 100%;
   }
 }

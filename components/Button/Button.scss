@@ -2,19 +2,20 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-4);
-  font-weight: 500;
-  transition: all 150ms ease-in-out;
-  border-radius: var(--radius-sm);
-  border: 1px solid;
+  gap: var(--spacing-6);
+  font-weight: 600;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+  transition: background-color 150ms ease, border-color 150ms ease,
+    color 150ms ease;
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
   cursor: pointer;
   text-decoration: none;
   outline: none;
 
   &:focus-visible {
-    outline: none;
-    box-shadow: 0 0 0 2px var(--color-info-500),
-      0 0 0 4px rgba(59, 130, 246, 0.1);
+    box-shadow: 0 0 0 3px css-var-opacity(var(--color-cream-400), 0.5);
   }
 
   &:disabled {
@@ -23,103 +24,82 @@
   }
 
   &--sm {
-    height: rem(24);
+    height: rem(32);
     padding: 0 var(--spacing-12);
-    font-size: rem(14);
+    font-size: rem(12);
   }
 
   &--md {
-    height: rem(36);
-    padding: 0 var(--spacing-12);
+    min-height: rem(40);
+    padding: var(--spacing-10) var(--spacing-24);
     font-size: rem(14);
   }
 
   &--lg {
-    height: rem(40);
-    padding: 0 var(--spacing-24);
+    min-height: rem(44);
+    padding: var(--spacing-10) var(--spacing-28);
     font-size: rem(14);
   }
 
   &--xl {
-    height: rem(44);
-    padding: 0 var(--spacing-24);
+    min-height: rem(48);
+    padding: var(--spacing-12) var(--spacing-32);
     font-size: rem(16);
   }
 
   &--primary {
-    background-color: var(--color-white);
-    color: var(--color-secondary-700);
+    background-color: var(--color-berry-500);
+    color: var(--color-cream-50);
 
     &:hover:not(:disabled) {
-      background-color: var(--color-gray-100);
-      color: var(--color-secondary-900);
-    }
-
-    &:active:not(:disabled) {
-      background-color: var(--color-gray-200);
-      color: var(--color-black);
+      background-color: var(--color-berry-600);
     }
   }
 
   &--secondary {
-    background-color: var(--color-gray-100);
-    color: var(--color-secondary-700);
-    primary &:hover:not(:disabled) {
-      background-color: var(--color-gray-300);
-      color: var(--color-secondary-900);
-    }
+    background-color: var(--color-pine-800);
+    color: var(--color-text-primary);
 
-    &:active:not(:disabled) {
-      background-color: var(--color-gray-400);
-      color: var(--color-black);
+    &:hover:not(:disabled) {
+      background-color: var(--color-pine-700);
     }
   }
 
   &--outline {
     background-color: transparent;
-    color: var(--color-secondary-500);
+    border-color: var(--color-pine-700);
+    color: var(--color-text-primary);
 
     &:hover:not(:disabled) {
-      background-color: var(--color-gray-100);
-      color: var(--color-secondary-700);
-    }
-
-    &:active:not(:disabled) {
-      background-color: var(--color-gray-200);
-      color: var(--color-secondary-800);
+      background-color: var(--color-pine-800);
     }
   }
 
   &--ghost {
     background-color: transparent;
-    color: var(--color-white);
-    border: none;
+    color: var(--color-text-muted);
 
     &:hover:not(:disabled) {
-      background-color: var(--color-white);
-      color: var(--color-secondary-800);
-    }
-
-    &:active:not(:disabled) {
-      background-color: var(--color-gray-300);
-      color: var(--color-secondary-900);
+      background-color: var(--color-pine-800);
+      color: var(--color-text-primary);
     }
   }
 
   &--danger {
-    background-color: var(--color-error-500);
-    color: var(--color-white);
-    border-color: var(--color-error-500);
+    background-color: css-var-opacity(var(--color-error-400), 0.15);
+    color: var(--color-error-400);
 
     &:hover:not(:disabled) {
-      background-color: var(--color-error-700);
-      border-color: var(--color-error-700);
+      background-color: css-var-opacity(var(--color-error-400), 0.25);
     }
+  }
 
-    &:active:not(:disabled) {
-      background-color: var(--color-error-800);
-      border-color: var(--color-error-800);
-    }
+  .button__icon {
+    transition: transform 200ms ease-out;
+  }
+
+  &:hover:not(:disabled) .button__icon--right {
+    transform: translateX(var(--spacing-4));
   }
 
   &__spinner {

@@ -1,12 +1,12 @@
-import { Gift } from "lucide-react";
+import { Logo } from "@/components/logo";
 import "./Header.scss";
 
 export const Header = () => {
   return (
     <header className="header">
       <div className="header__content">
-        <Gift />
-        <span>Échange de cadeau!</span>
+        <Logo size={36} />
+        <span className="header__title">Échange de cadeau!</span>
       </div>
     </header>
   );

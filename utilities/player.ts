@@ -10,17 +10,7 @@ export interface IPlayer {
   };
 }
 
-export const emptyPlayer = {
-  id: crypto.randomUUID(),
-  name: {
-    value: "",
-    error: false,
-  },
-  email: {
-    value: "",
-    error: false,
-  },
-};
+export type PlayerStatus = "empty" | "started" | "filled";
 
 export const createNewPlayer = (id: string) => {
   return {
